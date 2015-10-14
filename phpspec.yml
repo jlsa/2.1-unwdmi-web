@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Leertaak5
+        psr4_prefix: Leertaak5
+        src_path: app
