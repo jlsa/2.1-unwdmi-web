@@ -5,6 +5,7 @@ import browserify from 'browserify';
 import buffer from 'gulp-buffer';
 import uglify from 'gulp-uglify';
 import sass from 'gulp-sass';
+import cssnano from 'gulp-cssnano';
 import sourcemaps from 'gulp-sourcemaps';
 import source from 'vinyl-source-stream';
 import when from 'gulp-if';
@@ -13,6 +14,7 @@ gulp.task('sass', () => {
     return gulp.src('./resources/assets/sass/app.scss')
         .pipe(sourcemaps.init())
             .pipe(sass())
+            .pipe(when(args.minify, cssnano()))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('public/style'));
 });
