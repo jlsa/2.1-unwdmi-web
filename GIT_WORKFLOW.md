@@ -42,6 +42,16 @@ git commit
 # > ms.
 ```
 
+Before committing, it's a good idea to have PHPCS or ESlint check your code
+style:
+
+```bash
+# if you worked on the PHP side of things:
+php artisan cs:php
+# if you worked on the JS side of things:
+php artisan cs:js
+```
+
 When you're mostly done with your branch, push it to Github using:
 
 ```bash
