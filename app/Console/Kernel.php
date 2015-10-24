@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Leertaak5\Console\Commands\Inspire::class,
+        \Leertaak5\Console\Commands\ESLintCommand::class,
+        \Leertaak5\Console\Commands\PHPCSCommand::class,
     ];
 
     /**
