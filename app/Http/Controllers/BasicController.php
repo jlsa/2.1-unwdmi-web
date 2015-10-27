@@ -12,13 +12,13 @@ class BasicController extends Controller
     public function showStationInformation()
     {
         $stations = Station::all();
-        if(!empty($stations)) {
-	        foreach ($stations as $station) {
-	            echo $station->name . "<br/>";
-	        }
-	        echo "Those were the stations!";
-	    } else {
-	    	echo "No stations!";
-	    }
+        if (!empty($stations)) {
+            foreach ($stations as $station) {
+                echo $station->name . "<br/>";
+            }
+            echo "Those were the stations!";
+        } else {
+            echo "No stations!";
+        }
     }
 }
