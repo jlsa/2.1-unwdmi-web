@@ -19,8 +19,7 @@ class CreateMeasurementsTable extends Migration
         Schema::create('measurements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('stn');
-            $table->date('date');
-            $table->time('time');
+            $table->timestamp('timestamp');
             $table->double('temp');
             $table->double('dewp');
             $table->double('stp');
