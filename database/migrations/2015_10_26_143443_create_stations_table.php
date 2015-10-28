@@ -14,7 +14,7 @@ class CreateStationsTable extends Migration
     {
         Schema::create('stations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name' , 64);
+            $table->string('name', 64);
             $table->string('country', 64);
             $table->double('latitude');
             $table->double('longitude');
