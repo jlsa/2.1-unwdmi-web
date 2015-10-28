@@ -21,5 +21,8 @@
   },
   "dependencies": {
     "bootstrap": "github:twbs/bootstrap#v4-dev"
+  },
+  "scripts": {
+    "build": "gulp"
   }
 }

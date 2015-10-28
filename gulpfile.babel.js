@@ -33,4 +33,4 @@ gulp.task('js', () => {
         .pipe(gulp.dest('public/js'));
 });
 
-gulp.task('default', [ 'sass' ]);
+gulp.task('default', [ 'sass', 'js' ]);
