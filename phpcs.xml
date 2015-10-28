@@ -2,9 +2,13 @@
 <ruleset name="unwdmi-web">
     <file>app</file>
     <file>config</file>
+    <file>database</file>
     <file>resources/views</file>
 
     <arg value="np" />
 
     <rule ref="PSR2" />
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>database/*</exclude-pattern>
+    </rule>
 </ruleset>
