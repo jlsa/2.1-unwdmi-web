@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('stations', 'BasicController@showStationInformation');
+Route::get('top10', 'Top10TemperatureController@show');
