@@ -27,8 +27,7 @@ class Top10TemperatureController extends Controller
 
         $stations = Station::where('longitude', $longitude)->get();
 
-        foreach($stations as $station)
-        {
+        foreach ($stations as $station) {
             $measurements = Measurement::with('station')
                             ->where('timestamp', '>=', Carbon::now()->subDay())
                             ->groupBy('stn')
@@ -37,8 +36,7 @@ class Top10TemperatureController extends Controller
                             ->take(10)
                             ->get();
 
-            foreach ($measurements as $measurement)
-            {
+            foreach ($measurements as $measurement) {
                 $data[$station->id][] = $measurement->temp;
             }
         }
