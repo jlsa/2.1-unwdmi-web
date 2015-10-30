@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('top10', 'Top10TemperatureController@show');
+
+Route::get('all', 'AllWeatherDataController@show');
