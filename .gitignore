@@ -1,4 +1,4 @@
-/_ide_helper.php
+_ide_helper.php
 /vendor
 /node_modules
 npm-debug.log
@@ -7,3 +7,4 @@ Homestead.json
 .env
 public/style/app.css
 public/js/app.js
+.idea
