@@ -18,27 +18,25 @@ class MeasurementSeeder extends Seeder
     public function run()
     {
         $stations = Station::all();
-        $data = array();
-        $temp = array();
+        $data = [];
+        $temp = [];
 
-        foreach ($stations as $station)
-        {
-            $temp = array(
-                    'temp' => $this->getRandomDouble(-30, 40, 1),
-                    'dewp' => $this->getRandomDouble(-40, 35, 1),
-                    'stp' => $this->getRandomDouble(900, 1100, 1),
-                    'slp' => $this->getRandomDouble(900, 1100, 1),
-                    'visib' => $this->getRandomDouble(0, 165, 1),
-                    'prcp' => $this->getRandomDouble(0, 15, 1),
-                    'sndp' => $this->getRandomDouble(0, 90, 1),
-                    'ddc' => $this->getRandomDouble(0, 100, 1),
-                    'wnddir' => rand(0, 359),
-                    'wdsp' => $this->getRandomDouble(0, 80, 1)
-                );
+        foreach ($stations as $station) {
+            $temp = [
+                'temp' => $this->getRandomDouble(-30, 40, 1),
+                'dewp' => $this->getRandomDouble(-40, 35, 1),
+                'stp' => $this->getRandomDouble(900, 1100, 1),
+                'slp' => $this->getRandomDouble(900, 1100, 1),
+                'visib' => $this->getRandomDouble(0, 165, 1),
+                'prcp' => $this->getRandomDouble(0, 15, 1),
+                'sndp' => $this->getRandomDouble(0, 90, 1),
+                'ddc' => $this->getRandomDouble(0, 100, 1),
+                'wnddir' => rand(0, 359),
+                'wdsp' => $this->getRandomDouble(0, 80, 1)
+            ];
 
-            for ($i = 0; $i < $this->seedAmount; $i++)
-            {
-                $data[] = array(
+            for ($i = 0; $i < $this->seedAmount; $i++) {
+                $data[] = [
                     'stn' => $station->id,
                     'timestamp' => Carbon::now(),
                     'temp' => $this->createRandomValueBasedOn($temp['temp']),
@@ -54,7 +52,7 @@ class MeasurementSeeder extends Seeder
                     'ddc' => $this->createRandomValueBasedOn($temp['ddc']),
                     'wnddir' => $this->createRandomValueBasedOn($temp['wnddir']),
                     'wdsp' => $this->createRandomValueBasedOn($temp['wdsp'])
-                );
+                ];
             }
         }
 
@@ -67,8 +65,9 @@ class MeasurementSeeder extends Seeder
      */
     public function getRandomDouble($min, $max, $decimals)
     {
-        if($decimals < 0 || $decimals > 5)
+        if ($decimals < 0 || $decimals > 5) {
             return;
+        }
         $factor = $decimals == 0 ? 1 : pow(10, $decimals);
         return rand($min * $factor, $max * $factor) / $factor;
     }
@@ -77,9 +76,13 @@ class MeasurementSeeder extends Seeder
      * Creates a random value based on a base value and copies
      * its amount of decimals.
      */
-    public function createRandomValueBasedOn($value) {
+    public function createRandomValueBasedOn($value)
+    {
         $decimals = strlen(substr(strrchr($value, "."), 1));
-        return $this->getRandomDouble($value * (1 - ($this->randomValueWindow / 2)),
-            $value * (1 + ($this->randomValueWindow / 2)), $decimals);;
+        return $this->getRandomDouble(
+            $value * (1 - ($this->randomValueWindow / 2)),
+            $value * (1 + ($this->randomValueWindow / 2)),
+            $decimals
+        );
     }
 }
