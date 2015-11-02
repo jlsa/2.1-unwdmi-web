@@ -7,4 +7,4 @@ Homestead.json
 .env
 public/style/app.css
 public/js/app.js
-.idea
+.idea/*
