@@ -7,3 +7,12 @@ $navbar-dark-color:         rgba(255,255,255,1);
 
 @import "bootstrap/scss/bootstrap";
 @import "leaflet/dist/leaflet.css";
+
+.map {
+  &-station {
+    border-radius: 50%;
+    background: $brand-primary;
+    border: 1px solid darken($brand-primary, 25%);
+    box-shadow: 1px 1px 1px darken($brand-primary, 25%);
+  }
+}
