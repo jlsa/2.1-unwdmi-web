@@ -22,7 +22,8 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "bootstrap": "github:twbs/bootstrap#v4-dev"
+    "bootstrap": "github:twbs/bootstrap#v4-dev",
+    "leaflet": "^0.7.7"
   },
   "scripts": {
     "build": "gulp"
