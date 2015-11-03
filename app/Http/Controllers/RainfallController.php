@@ -34,7 +34,7 @@ class RainfallController extends Controller
         $data['measurements'] = array();
 
         $measurements = Measurement::with('station')
-        ->where('timestamp', '>=', Carbon::now()->subDay())
+        ->where('time', '>=', Carbon::now()->subDay())
         ->chunk(1000, function ($measurements) use (&$data) {
             foreach ($measurements as $measurement) {
                 $data['measurements'][] = $measurement;
@@ -45,7 +45,7 @@ class RainfallController extends Controller
     }
 
     /**
-     * Returns most recent longitude, latitude and precipation
+     * Returns most recent longitude, latitude and precipitation
      * per location.
      */
     public function showMostRecent()
@@ -56,14 +56,14 @@ class RainfallController extends Controller
 
         foreach ($stations as $station) {
             $measurements = Measurement::with('station')
-            ->groupBy('stn')
+            ->groupBy('station_id')
             ->groupBy('id')
-            ->orderBy('timestamp', 'desc')
+            ->orderBy('time', 'desc')
             ->take(1)
             ->get();
 
             foreach ($measurements as $measurement) {
-                $data[$station->id] = array('station' => $station, 'precipation' => $measurement->prcp);
+                $data[$station->id] = array('station' => $station, 'precipitation' => $measurement->precipitation);
             }
         }
 
