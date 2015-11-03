@@ -17,7 +17,7 @@ class RawDataController extends Controller
     public function raw()
     {
 //        $this->printHeaders();
-        Measurement::where('timestamp', '>', $this->getStartDate())
+        Measurement::where('time', '>', $this->getStartDate())
             ->chunk(1000, function ($measurements) {
                 foreach ($measurements as $measurement) {
                     echo implode(',', $measurement->toArray()).PHP_EOL;

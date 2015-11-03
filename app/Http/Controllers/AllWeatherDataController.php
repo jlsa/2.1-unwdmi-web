@@ -27,9 +27,9 @@ class AllWeatherDataController extends Controller
 
         foreach ($stations as $station) {
             $measurements = Measurement::with('station')
-                            ->where('timestamp', '>=', Carbon::now()->subWeek())
-                            ->where('temp', '<', 20)
-                            ->groupBy('stn')
+                            ->where('time', '>=', Carbon::now()->subWeek())
+                            ->where('temperature', '<', 20)
+                            ->groupBy('station_id')
                             ->groupBy('id')
                             ->get();
 
