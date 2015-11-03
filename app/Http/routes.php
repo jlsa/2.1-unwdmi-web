@@ -22,3 +22,4 @@ Route::get('all', 'AllWeatherDataController@show');
 Route::get('rainperstation', 'RainfallController@showPerStation');
 
 Route::get('rainmostrecent', 'RainfallController@showMostRecent');
+
