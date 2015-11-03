@@ -36,4 +36,9 @@ gulp.task('js', () => {
         .pipe(gulp.dest('public/js'));
 });
 
+gulp.task('watch', () => {
+  gulp.watch('./resources/assets/js/**/*.js', [ 'js' ])
+  gulp.watch('./resources/assets/sass/**/*.scss', [ 'sass' ])
+})
+
 gulp.task('default', [ 'sass', 'js' ]);
