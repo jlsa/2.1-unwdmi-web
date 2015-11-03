@@ -4,8 +4,10 @@ import { configure as babelify } from 'babelify';
 import browserify from 'browserify';
 import buffer from 'gulp-buffer';
 import uglify from 'gulp-uglify';
-import sass from 'gulp-sass';
 import cssnano from 'gulp-cssnano';
+import sass from 'gulp-sass';
+import postcss from 'gulp-postcss';
+import postcssImport from 'postcss-import';
 import sourcemaps from 'gulp-sourcemaps';
 import source from 'vinyl-source-stream';
 import when from 'gulp-if';
@@ -13,7 +15,8 @@ import when from 'gulp-if';
 gulp.task('sass', () => {
     return gulp.src('./resources/assets/sass/app.scss')
         .pipe(sourcemaps.init())
-            .pipe(sass())
+            .pipe(sass({ includePaths: [ './node_modules' ] }))
+            .pipe(postcss([ postcssImport() ]))
             .pipe(when(args.minify, cssnano()))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('public/style'));
