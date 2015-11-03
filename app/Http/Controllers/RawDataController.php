@@ -1,6 +1,6 @@
 <?php
-
 namespace Leertaak5\Http\Controllers;
+
 use Carbon\Carbon;
 use Leertaak5\Http\Requests;
 use Leertaak5\Measurement;

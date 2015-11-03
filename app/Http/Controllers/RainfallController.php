@@ -35,7 +35,7 @@ class RainfallController extends Controller
 
         $measurements = Measurement::with('station')
         ->where('timestamp', '>=', Carbon::now()->subDay())
-        ->chunk(1000, function($measurements) use (&$data) {
+        ->chunk(1000, function ($measurements) use (&$data) {
             foreach ($measurements as $measurement) {
                 $data['measurements'][] = $measurement;
             }
