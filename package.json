@@ -23,7 +23,9 @@
   },
   "dependencies": {
     "bootstrap": "github:twbs/bootstrap#v4-dev",
-    "leaflet": "^0.7.7"
+    "deku": "^0.5.6",
+    "leaflet": "^0.7.7",
+    "magic-virtual-element": "^1.0.6"
   },
   "scripts": {
     "build": "gulp"

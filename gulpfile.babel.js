@@ -27,7 +27,7 @@ gulp.task('js', () => {
         debug: !args.minify,
         entries: './resources/assets/js/app.js'
     })
-    .transform(babelify({ stage: 0 }));
+    .transform(babelify({ stage: 0, jsxPragma: 'element' }));
 
     return bundler.bundle()
         .pipe(source('app.js'))
