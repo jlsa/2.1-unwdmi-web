@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('top10', 'Top10TemperatureController@show');
+
+Route::get('all', 'AllWeatherDataController@show');
+
+Route::get('rainperstation', 'RainfallController@showPerStation');
+
+Route::get('rainmostrecent', 'RainfallController@showMostRecent');
