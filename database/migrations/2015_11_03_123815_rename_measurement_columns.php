@@ -20,7 +20,7 @@ class RenameMeasurementColumns extends Migration
             $table->renameColumn('stp', 'station_pressure');
             $table->renameColumn('slp', 'sea_level_pressure');
             $table->renameColumn('visib', 'visibility');
-            $table->renameColumn('prcp', 'precipation');
+            $table->renameColumn('prcp', 'precipitation');
             $table->renameColumn('sndp', 'snow_depth');
             $table->renameColumn('frshtt', 'events');
             $table->renameColumn('ddc', 'cloud_cover');
@@ -44,7 +44,7 @@ class RenameMeasurementColumns extends Migration
             $table->renameColumn('station_pressure', 'stp');
             $table->renameColumn('sea_level_pressure', 'slp');
             $table->renameColumn('visibility', 'visib');
-            $table->renameColumn('precipation', 'prcp');
+            $table->renameColumn('precipitation', 'prcp');
             $table->renameColumn('snow_depth', 'sndp');
             $table->renameColumn('events', 'frshtt');
             $table->renameColumn('cloud_cover', 'ddc');

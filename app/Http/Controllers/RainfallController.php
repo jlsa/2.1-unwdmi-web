@@ -45,7 +45,7 @@ class RainfallController extends Controller
     }
 
     /**
-     * Returns most recent longitude, latitude and precipation
+     * Returns most recent longitude, latitude and precipitation
      * per location.
      */
     public function showMostRecent()
@@ -63,7 +63,7 @@ class RainfallController extends Controller
             ->get();
 
             foreach ($measurements as $measurement) {
-                $data[$station->id] = array('station' => $station, 'precipation' => $measurement->precipation);
+                $data[$station->id] = array('station' => $station, 'precipitation' => $measurement->precipitation);
             }
         }
 

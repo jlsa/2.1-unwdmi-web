@@ -29,7 +29,7 @@ class Top10TemperatureController extends Controller
 
         foreach ($stations as $station) {
             $measurements = Measurement::with('station')
-                            //->where('time', '>=', Carbon::now()->subDay())
+                            ->where('time', '>=', Carbon::now()->subDay())
                             ->groupBy('station_id')
                             ->groupBy('id')
                             ->orderBy('temperature', 'desc')
