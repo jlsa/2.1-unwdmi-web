@@ -14,7 +14,7 @@ function render({ props, state }) {
 
 function afterMount({ props, state }, el, setState) {
   const map = leaflet.map(el, props);
-  const tiles = leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  const tiles = leaflet.tileLayer('https://maps.wikimedia.org/osm/{z}/{x}/{y}.png', {
     attribution: 'Map data ⓒ <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors'
   });
   tiles.addTo(map);
