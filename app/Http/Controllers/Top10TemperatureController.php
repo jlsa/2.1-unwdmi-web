@@ -19,7 +19,7 @@ class Top10TemperatureController extends Controller
     {
         //Grab all Measurements, where time is of the last
         //24 hrs and the longitude = Kyoto's
-        
+
         $data = array();
 
         //Kyoto's longitude is 135.733 in decimals
@@ -41,6 +41,6 @@ class Top10TemperatureController extends Controller
             }
         }
 
-        return $data;
+        return view('weather.temperatures', $data);
     }
 }
