@@ -14,7 +14,7 @@
         <a class="navbar-brand" href="#">UNWDMI</a>
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="">Temperatures</a>
+                <a class="nav-link" href="{{action('Top10TemperatureController@show')}}">Temperatures</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="">Rainfall</a>
