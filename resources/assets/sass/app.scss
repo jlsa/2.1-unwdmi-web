@@ -8,37 +8,4 @@ $navbar-dark-color:         rgba(255,255,255,1);
 @import "bootstrap/scss/bootstrap";
 @import "leaflet/dist/leaflet.css";
 
-$cluster-small-color: #5cb85c;
-$cluster-medium-color: #f0ad4e;
-$cluster-large-color: #d9534f;
-
-.map {
-  &-marker {
-    border-radius: 50%;
-    color: #fff;
-    background: $brand-primary;
-    opacity: 0.8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &--station {
-      text-shadow: 0 0 2px $gray-dark;
-      white-space: nowrap;
-    }
-    &--cluster {
-      text-shadow: none;
-      background-color: $brand-primary;
-    }
-
-    &--small {
-      box-shadow: 0 0 5px $brand-primary;
-    }
-    &--medium {
-      box-shadow: 0 0 10px $brand-primary;
-    }
-    &--large {
-      box-shadow: 0 0 15px $brand-primary;
-    }
-  }
-}
+@import "./components/map.scss";
