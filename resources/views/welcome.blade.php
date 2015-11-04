@@ -1,5 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-            <div class="title">Laravel 5</div>
+    @if (session('error'))
+        <div class="alert alert-danger">
+        {{ session('error') }}
+        </div>
+    @endif
+    <div class="title">Laravel 5</div>
 @endsection
