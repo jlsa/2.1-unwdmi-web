@@ -24,21 +24,21 @@ class MeasurementSeeder extends Seeder
         foreach ($stations->get() as $station) {
             $date = Carbon::now();
             $temp = [
-                'stn' => $station->id,
-                'timestamp' => $date->format(DateTime::ATOM),
-                'temp' => $this->getRandomDouble(-30, 40, 1),
-                'dewp' => $this->getRandomDouble(-40, 35, 1),
-                'stp' => $this->getRandomDouble(900, 1100, 1),
-                'slp' => $this->getRandomDouble(900, 1100, 1),
-                'visib' => $this->getRandomDouble(0, 165, 1),
-                'prcp' => $this->getRandomDouble(0, 15, 1),
-                'sndp' => $this->getRandomDouble(0, 90, 1),
-                'frshtt' => (rand(0, 1) . rand(0, 1)
+                'station_id' => $station->id,
+                'time' => $date->format(DateTime::ATOM),
+                'temperature' => $this->getRandomDouble(-30, 40, 1),
+                'dew_point' => $this->getRandomDouble(-40, 35, 1),
+                'station_pressure' => $this->getRandomDouble(900, 1100, 1),
+                'sea_level_pressure' => $this->getRandomDouble(900, 1100, 1),
+                'visibility' => $this->getRandomDouble(0, 165, 1),
+                'precipitation' => $this->getRandomDouble(0, 15, 1),
+                'snow_depth' => $this->getRandomDouble(0, 90, 1),
+                'events' => (rand(0, 1) . rand(0, 1)
                     . rand(0, 1) . rand(0, 1) . rand(0, 1)
                     . rand(0, 1)),
-                'ddc' => $this->getRandomDouble(0, 100, 1),
-                'wnddir' => rand(0, 359),
-                'wdsp' => $this->getRandomDouble(0, 80, 1)
+                'cloud_cover' => $this->getRandomDouble(0, 100, 1),
+                'wind_direction' => rand(0, 359),
+                'wind_speed' => $this->getRandomDouble(0, 80, 1)
             ];
 
             $data = [$temp];
@@ -46,21 +46,21 @@ class MeasurementSeeder extends Seeder
                 // travel back in tiiime!
                 $date->subSecond();
                 $temp = [
-                    'stn' => $station->id,
-                    'timestamp' => $date->format(DateTime::ATOM),
-                    'temp' => $this->createRandomValueBasedOn($temp['temp']),
-                    'dewp' => $this->createRandomValueBasedOn($temp['dewp']),
-                    'stp' => $this->createRandomValueBasedOn($temp['stp']),
-                    'slp' => $this->createRandomValueBasedOn($temp['slp']),
-                    'visib' => $this->createRandomValueBasedOn($temp['visib']),
-                    'prcp' => $this->createRandomValueBasedOn($temp['prcp']),
-                    'sndp' => $this->createRandomValueBasedOn($temp['sndp']),
-                    'frshtt' => (rand(0, 1) . rand(0, 1)
+                    'station_id' => $station->id,
+                    'time' => $date->format(DateTime::ATOM),
+                    'temperature' => $this->createRandomValueBasedOn($temp['temperature']),
+                    'dew_point' => $this->createRandomValueBasedOn($temp['dew_point']),
+                    'station_pressure' => $this->createRandomValueBasedOn($temp['station_pressure']),
+                    'sea_level_pressure' => $this->createRandomValueBasedOn($temp['sea_level_pressure']),
+                    'visibility' => $this->createRandomValueBasedOn($temp['visibility']),
+                    'precipitation' => $this->createRandomValueBasedOn($temp['precipitation']),
+                    'snow_depth' => $this->createRandomValueBasedOn($temp['snow_depth']),
+                    'events' => (rand(0, 1) . rand(0, 1)
                         . rand(0, 1) . rand(0, 1) . rand(0, 1)
                         . rand(0, 1)),
-                    'ddc' => $this->createRandomValueBasedOn($temp['ddc']),
-                    'wnddir' => $this->createRandomValueBasedOn($temp['wnddir']),
-                    'wdsp' => $this->createRandomValueBasedOn($temp['wdsp'])
+                    'cloud_cover' => $this->createRandomValueBasedOn($temp['cloud_cover']),
+                    'wind_direction' => $this->createRandomValueBasedOn($temp['wind_direction']),
+                    'wind_speed' => $this->createRandomValueBasedOn($temp['wind_speed'])
                 ];
                 $data[] = $temp;
             }
