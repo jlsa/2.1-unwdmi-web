@@ -31,7 +31,7 @@ class StationsController extends Controller
 
     public function index()
     {
-        $stations = Station::all();
+        $stations = Station::paginate(30);
         return view('station.overview',[
             'stations' => $stations
         ]);

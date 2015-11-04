@@ -3,18 +3,25 @@
 @section('title','Stations')
 
 @section('content')
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Country</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Elevation</th>
-            </tr>
-        </thead>
-        @foreach ($stations as $station)
+<div class="row">
+    <div class="col-md-12">
+        {!! $stations->render() !!}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Elevation</th>
+                </tr>
+            </thead>
+            @foreach ($stations as $station)
             <tr>
                 <td>
                     <a href="{{ action('StationsController@show', $station) }}">
@@ -37,7 +44,9 @@
                     {{ $station->elevation }}
                 </td>
             </tr>
-        @endforeach
-    </table>
-
+            @endforeach
+        </table>
+        {!! $stations->render() !!}
+    </div>
+</div>
 @endsection
