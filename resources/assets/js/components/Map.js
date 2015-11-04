@@ -1,7 +1,8 @@
 import assign from 'object-assign';
 import element from 'magic-virtual-element'; // eslint-disable-line no-unused-vars
 import leaflet from 'leaflet';
-import titleCase from 'title-case';
+import { render as renderTree, tree } from 'deku';
+import StationPopup from './Map/Station';
 
 const defaultProps = {
   width: 800,
@@ -25,13 +26,17 @@ function afterMount({ props, state }, el, setState) {
   });
   const markers = leaflet.layerGroup(
     props.children.map(({ attributes }) => {
-      const { latitude, longitude, name, country } = attributes;
+      const { id, latitude, longitude } = attributes;
+      const el = document.createElement('div');
       return leaflet.marker([ latitude, longitude ], { icon: stationIcon })
-        .bindPopup(`${titleCase(name)}, ${titleCase(country)}`);
+        .bindPopup(el)
+        .once('popupopen', e => {
+          // poopy! ):
+          renderTree(tree(<StationPopup id={id} popup={e.popup} />), el);
+        });
     })
   );
   const map = leaflet.map(el, assign({}, props, { layers: [ tiles, markers ] }));
-  tiles.addTo(map);
   setState({ map });
 }
 
