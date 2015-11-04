@@ -9,6 +9,6 @@ class Station extends Model
 {
     public function measurements()
     {
-        return $this->hasMany('Leertaak5\Measurement', 'stn', 'id');
+        return $this->hasMany('Leertaak5\Measurement');
     }
 }

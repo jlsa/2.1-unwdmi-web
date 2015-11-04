@@ -11,6 +11,6 @@ class Measurement extends Model
 
     public function station()
     {
-        return $this->belongsTo('Leertaak5\Station', 'stn');
+        return $this->belongsTo('Leertaak5\Station');
     }
 }
