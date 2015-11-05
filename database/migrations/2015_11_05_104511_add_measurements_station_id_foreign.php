@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AddMeasurementsStationIdForeign extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('station', function (Blueprint $table) {
+            $table->foreign('station_id')
+                ->references('id')
+                ->on('stations')
+                ->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('station', function (Blueprint $table) {
+            $table->drop('measurements_station_id_foreign');
+        });
+    }
+}
