@@ -1,7 +1,9 @@
-@extends('layouts.master')
+@extends('layouts.map')
 
-@section('title','Rainfall')
+@section('title', 'Rainfall')
 
 @section('content')
-Rain!
+
+  <span data-insert="map"></span>
+
 @endsection('content')

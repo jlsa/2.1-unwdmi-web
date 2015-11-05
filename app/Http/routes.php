@@ -15,7 +15,8 @@ Route::get('/', ['middleware' => 'auth', function() {
     return view('welcome');
 }]);
 
-Route::get('stations/{id}', 'StationsController@show');
+Route::get('stations.json', 'StationsController@jsonIndex');
+Route::get('stations/{id}.json', 'StationsController@jsonShow');
 
 Route::get('temperatures', [
     'middleware' => 'auth',
@@ -27,11 +28,12 @@ Route::get('all', [
     'uses' => 'AllWeatherDataController@show'
 ]);
 
+
+Route::get('world', 'RainfallController@index');
 Route::get('rainperstation', [
     'middleware' => 'auth',
     'uses' => 'RainfallController@showPerStation'
 ]);
-
 Route::get('rainmostrecent', [
     'middleware' => 'auth',
     'uses' => 'RainfallController@showMostRecent'

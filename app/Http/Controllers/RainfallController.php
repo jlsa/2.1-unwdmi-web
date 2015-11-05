@@ -16,6 +16,11 @@ use Carbon\Carbon;
 
 class RainfallController extends Controller
 {
+    public function index()
+    {
+        return view('weather.rainfall');
+    }
+
     /**
      * Displays information per station of the last
      * 24 hours.

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.page')
 
 @section('content')
     @if (session('error'))
