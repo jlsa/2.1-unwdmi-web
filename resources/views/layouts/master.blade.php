@@ -27,11 +27,9 @@
             </li>
         </ul>
     </nav>
-    <div class="container">
-        @yield('content')
-    </div>
 
+    @yield('master_content')
 
-<script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

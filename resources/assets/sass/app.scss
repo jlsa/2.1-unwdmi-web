@@ -9,3 +9,16 @@ $navbar-dark-color:         rgba(255,255,255,1);
 @import "leaflet/dist/leaflet.css";
 
 @import "./components/map.scss";
+
+$navbar-font-height: 1.5rem;
+$navbar-link-vertical-padding: 0.425rem;
+$navbar-vertical-padding: 0.5rem;
+$navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $navbar-vertical-padding;
+
+.full-page {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  padding-top: $navbar-height;
+}
