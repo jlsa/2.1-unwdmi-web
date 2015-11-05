@@ -28,11 +28,12 @@ Route::get('all', [
     'uses' => 'AllWeatherDataController@show'
 ]);
 
+
+Route::get('world', 'RainfallController@index');
 Route::get('rainperstation', [
     'middleware' => 'auth',
     'uses' => 'RainfallController@showPerStation'
 ]);
-
 Route::get('rainmostrecent', [
     'middleware' => 'auth',
     'uses' => 'RainfallController@showMostRecent'
