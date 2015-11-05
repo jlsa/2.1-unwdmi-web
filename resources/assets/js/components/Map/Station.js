@@ -37,7 +37,7 @@ function render({ props, state }) {
 }
 
 function afterMount({ props }, el, setState) {
-  fetch(`/stations/${props.id}`)
+  fetch(`/stations/${props.id}.json`)
     .then(res => res.json())
     .then(setState);
 }

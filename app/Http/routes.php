@@ -15,7 +15,8 @@ Route::get('/', ['middleware' => 'auth', function() {
     return view('welcome');
 }]);
 
-Route::get('stations/{id}', 'StationsController@show');
+Route::get('stations.json', 'StationsController@jsonIndex');
+Route::get('stations/{id}.json', 'StationsController@jsonShow');
 
 Route::get('temperatures', [
     'middleware' => 'auth',
