@@ -36,4 +36,11 @@ class StationsController extends Controller
             'stations' => $stations
         ]);
     }
+
+    public function showMeasurements($id){
+        $measurements = Measurement::where('station_id', $id);
+        return view('measurement.overview',[
+                    'measurements' =>  $measurements->paginate(30)
+                ]);
+    }
 }
