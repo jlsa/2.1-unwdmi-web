@@ -10,7 +10,12 @@ use Leertaak5\Http\Controllers\Controller;
 
 class StationsController extends Controller
 {
-    public function show($id)
+    public function jsonIndex()
+    {
+        return Station::select([ 'id', 'name', 'latitude', 'longitude' ])->get();
+    }
+
+    public function jsonShow($id)
     {
         $station = Station::find($id);
         return [
