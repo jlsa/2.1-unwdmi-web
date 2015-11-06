@@ -10,6 +10,10 @@ use Leertaak5\Http\Controllers\Controller;
 
 class StationsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function jsonIndex()
     {
         return Station::select([ 'id', 'name', 'latitude', 'longitude' ])->get();
