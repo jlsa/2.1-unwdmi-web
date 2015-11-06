@@ -55,23 +55,30 @@ class RainfallController extends Controller
      */
     public function showMostRecent()
     {
-        $data = array();
+        $maxTemp = Measurement::select(
+            'station_id',
+            DB::raw('MAX(time) as time')
+        )->groupBy('station_id');
 
-        $stations = Station::all();
 
-        foreach ($stations as $station) {
-            $measurements = Measurement::with('station')
-            ->groupBy('station_id')
-            ->groupBy('id')
-            ->orderBy('time', 'desc')
-            ->take(1)
-            ->get();
-
-            foreach ($measurements as $measurement) {
-                $data[$station->id] = array('station' => $station, 'precipitation' => $measurement->precipitation);
+        $measurements = Measurement::join(
+            DB::raw('('.$maxTemp->toSql().') "maxTime"'),
+            function ($join) {
+                $join->on('maxTime.station_id', '=', 'measurements.station_id');
+                $join->on('maxTime.time', '=', 'measurements.time');
             }
-        }
+        )->with('station')->get();
 
+        foreach ($measurements as $measurement) {
+            $station = $measurement->station;
+            $data[] = array(
+                'id' => $station->id,
+                'name' => $station->name,
+                'latitude' => $station->latitude,
+                'longitude' => $station->longitude,
+                'precipitation' => $measurement->precipitation
+            );
+        }
         return $data;
     }
 }
