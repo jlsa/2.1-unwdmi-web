@@ -10,7 +10,8 @@ use Leertaak5\Http\Controllers\Controller;
 
 class StationsController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -33,23 +34,24 @@ class StationsController extends Controller
     public function show($id)
     {
         $station = Station::find($id);
-        return view('station.view',[
-                    'station' => $station
-                ]);
+        return view('station.view', [
+            'station' => $station
+        ]);
     }
 
     public function index()
     {
         $stations = Station::paginate(30);
-        return view('station.overview',[
+        return view('station.overview', [
             'stations' => $stations
         ]);
     }
 
-    public function showMeasurements($id){
+    public function showMeasurements($id)
+    {
         $measurements = Measurement::where('station_id', $id);
-        return view('measurement.overview',[
-                    'measurements' =>  $measurements->paginate(30)
-                ]);
+        return view('measurement.overview', [
+            'measurements' =>  $measurements->paginate(30)
+        ]);
     }
 }

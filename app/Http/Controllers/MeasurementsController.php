@@ -13,15 +13,15 @@ class MeasurementsController extends Controller
     public function show($id)
     {
         $measurement = Measurement::find($id);
-        return view('measurement.view',[
-                    'measurement' =>  $measurement
-                ]);
+        return view('measurement.view', [
+            'measurement' =>  $measurement
+        ]);
     }
 
     public function index()
     {
         $measurements = Measurement::paginate(30);
-        return view('measurement.overview',[
+        return view('measurement.overview', [
             'measurements' => $measurements
         ]);
 

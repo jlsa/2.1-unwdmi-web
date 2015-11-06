@@ -31,7 +31,7 @@ class RainfallController extends Controller
         return [
             'station' => $station,
             'measurements' => $station->measurements()
-                ->where('time', '>=',  Carbon::now()->subDay())
+                ->where('time', '>=', Carbon::now()->subDay())
                 ->get()
         ];
     }
