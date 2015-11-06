@@ -37,7 +37,7 @@ Route::get('all', [
 
 
 Route::get('world', 'RainfallController@index');
-Route::get('rainperstation', [
+Route::get('measurements.json', [
     'middleware' => 'auth',
     'uses' => 'RainfallController@showPerStation'
 ]);
