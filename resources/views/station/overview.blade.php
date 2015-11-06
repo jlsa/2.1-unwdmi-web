@@ -29,10 +29,10 @@
                     </a>
                 </td>
                 <td>
-                    {{ $station->name }}
+                    {{ title_case($station->name) }}
                 </td>
                 <td>
-                    {{ $station->country }}
+                    {{ title_case($station->country) }}
                 </td>
                 <td>
                     {{ $station->latitude }}

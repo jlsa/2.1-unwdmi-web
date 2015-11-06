@@ -6,8 +6,8 @@
 
 <div class="page-title">
     <h1>
-        {{ ucwords(strtolower($station->name)) }},
-        {{ ucwords(strtolower($station->country)) }}
+        {{ title_case($station->name) }},
+        {{ title_case($station->country) }}
     </h1>
 </div>
 
@@ -29,11 +29,11 @@
         </tr>
         <tr>
             <td>Name</td>
-            <td>{{ $station->name }}</td>
+            <td>{{ title_case($station->name) }}</td>
         </tr>
         <tr>
             <td>Country</td>
-            <td>{{ $station->country }}</td>
+            <td>{{ title_case($station->country) }}</td>
         </tr>
         <tr>
             <td>Latitude</td>
