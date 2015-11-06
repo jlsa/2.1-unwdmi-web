@@ -49,7 +49,7 @@ class StationsController extends Controller
 
     public function showMeasurements($id)
     {
-        $measurements = Measurement::where('station_id', $id);
+        $measurements = Station::find($id)->measurements();
         return view('measurement.overview', [
             'measurements' =>  $measurements->paginate(30)
         ]);
