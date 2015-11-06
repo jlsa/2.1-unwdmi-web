@@ -19,9 +19,11 @@ class MeasurementSeeder extends Seeder
      */
     public function run()
     {
-        $stations = Station::where('longitude', '>', $this->between[0])
-                           ->where('longitude', '<', $this->between[1]);
-        foreach ($stations->get() as $station) {
+        $stations = Station::all();
+        // holds measurements to add separately from the per-station batches. this speeds up
+        // inserting measurements for stations that don't get a history significantly.
+        $later = [];
+        foreach ($stations as $station) {
             $date = Carbon::now();
             $temp = [
                 'station_id' => $station->id,
@@ -41,30 +43,42 @@ class MeasurementSeeder extends Seeder
                 'wind_speed' => $this->getRandomDouble(0, 80, 1)
             ];
 
-            $data = [$temp];
-            for ($i = 0; $i < $this->seedAmount; $i++) {
-                // travel back in tiiime!
-                $date->subSecond();
-                $temp = [
-                    'station_id' => $station->id,
-                    'time' => $date->format(DateTime::ATOM),
-                    'temperature' => $this->createRandomValueBasedOn($temp['temperature']),
-                    'dew_point' => $this->createRandomValueBasedOn($temp['dew_point']),
-                    'station_pressure' => $this->createRandomValueBasedOn($temp['station_pressure']),
-                    'sea_level_pressure' => $this->createRandomValueBasedOn($temp['sea_level_pressure']),
-                    'visibility' => $this->createRandomValueBasedOn($temp['visibility']),
-                    'precipitation' => $this->createRandomValueBasedOn($temp['precipitation']),
-                    'snow_depth' => $this->createRandomValueBasedOn($temp['snow_depth']),
-                    'events' => (rand(0, 1) . rand(0, 1)
-                        . rand(0, 1) . rand(0, 1) . rand(0, 1)
-                        . rand(0, 1)),
-                    'cloud_cover' => $this->createRandomValueBasedOn($temp['cloud_cover']),
-                    'wind_direction' => $this->createRandomValueBasedOn($temp['wind_direction']),
-                    'wind_speed' => $this->createRandomValueBasedOn($temp['wind_speed'])
-                ];
-                $data[] = $temp;
+            // generate more measurements for some stations
+            if ($station->longitude > $this->between[0] && $station->longitude < $this->between[1]) {
+                $data = [$temp];
+                for ($i = 0; $i < $this->seedAmount; $i++) {
+                    // travel back in tiiime!
+                    $date->subSecond();
+                    $temp = [
+                        'station_id' => $station->id,
+                        'time' => $date->format(DateTime::ATOM),
+                        'temperature' => $this->createRandomValueBasedOn($temp['temperature']),
+                        'dew_point' => $this->createRandomValueBasedOn($temp['dew_point']),
+                        'station_pressure' => $this->createRandomValueBasedOn($temp['station_pressure']),
+                        'sea_level_pressure' => $this->createRandomValueBasedOn($temp['sea_level_pressure']),
+                        'visibility' => $this->createRandomValueBasedOn($temp['visibility']),
+                        'precipitation' => $this->createRandomValueBasedOn($temp['precipitation']),
+                        'snow_depth' => $this->createRandomValueBasedOn($temp['snow_depth']),
+                        'events' => (rand(0, 1) . rand(0, 1)
+                            . rand(0, 1) . rand(0, 1) . rand(0, 1)
+                            . rand(0, 1)),
+                        'cloud_cover' => $this->createRandomValueBasedOn($temp['cloud_cover']),
+                        'wind_direction' => $this->createRandomValueBasedOn($temp['wind_direction']),
+                        'wind_speed' => $this->createRandomValueBasedOn($temp['wind_speed'])
+                    ];
+                    $data[] = $temp;
+                }
+                DB::table('measurements')->insert($data);
+            } else {
+                $later[] = $temp;
+                if (count($later) > $this->seedAmount) {
+                    DB::table('measurements')->insert($later);
+                    $later = [];
+                }
             }
-            DB::table('measurements')->insert($data);
+        }
+        if (count($later) > 0) {
+            DB::table('measurements')->insert($later);
         }
     }
 
