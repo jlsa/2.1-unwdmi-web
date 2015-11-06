@@ -31,6 +31,9 @@ function render({ props, state }) {
         Location: {latitude}°N {longitude}°E <br />
         Elevation: {elevation}m
       </p>
+      <p>
+        <a href={`/stations/${props.id}`}>Show »</a>
+      </p>
       {measurementInfo}
     </div>
   );
