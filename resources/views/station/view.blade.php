@@ -1,8 +1,26 @@
-@extends('layouts.master')
+@extends('layouts.page')
 
 @section('title','Stations')
 
 @section('content')
+
+<div class="page-title">
+    <h1>
+        {{ ucwords(strtolower($station->name)) }},
+        {{ ucwords(strtolower($station->country)) }}
+    </h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-12"
+         style="height: 300px;">
+        <span data-insert="map"
+              data-lat="{{ $station->latitude }}"
+              data-lon="{{ $station->longitude }}"
+              data-zoom="9"></span>
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <tr>
