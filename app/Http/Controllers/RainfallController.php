@@ -50,7 +50,7 @@ class RainfallController extends Controller
     }
 
     /**
-     * Returns most recent longitude, latitude and precipitation
+     * Returns stationName, stationId, longitude, latitude and most recent precipitation
      * per location.
      */
     public function showMostRecent()
