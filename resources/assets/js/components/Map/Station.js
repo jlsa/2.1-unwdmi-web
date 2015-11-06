@@ -40,7 +40,7 @@ function render({ props, state }) {
 }
 
 function afterMount({ props }, el, setState) {
-  fetch(`/stations/${props.id}.json`)
+  fetch(`/stations/${props.id}.json`, { credentials: 'same-origin' })
     .then(res => res.json())
     .then(setState);
 }
