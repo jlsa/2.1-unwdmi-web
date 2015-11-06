@@ -25,28 +25,15 @@ class RainfallController extends Controller
      * Displays information per station of the last
      * 24 hours.
      */
-    public function showPerStation()
+    public function showPerStation(Request $request)
     {
-        $data = array();
-
-        $stationid = 1;
-
-        $station = Station::where('id', '=', $stationid)
-        ->take(1)
-        ->get();
-
-        $data['station'] = $station;
-        $data['measurements'] = array();
-
-        $measurements = Measurement::with('station')
-        ->where('time', '>=', Carbon::now()->subDay())
-        ->chunk(1000, function ($measurements) use (&$data) {
-            foreach ($measurements as $measurement) {
-                $data['measurements'][] = $measurement;
-            }
-        });
-
-        return $data;
+        $station = Station::find($request->input('station'));
+        return [
+            'station' => $station,
+            'measurements' => $station->measurements()
+                ->where('time', '>=',  Carbon::now()->subDay())
+                ->get()
+        ];
     }
 
     /**
