@@ -6,12 +6,13 @@ import Station from './components/Map/Station';
 const insertMap = document.querySelector('[data-insert="map"]');
 
 if (insertMap) {
-  fetch('/stations.json')
+  const center = [ insertMap.dataset.lat || 0, insertMap.dataset.lon || 0 ];
+  fetch('/stations.json', { credentials: 'same-origin' })
     .then(res => res.json())
     .then(stations => (
       <Map
-        center={[ 0, 0 ]}
-        zoom="1"
+        center={center}
+        zoom={insertMap.dataset.zoom || 1}
         height="100%"
         width="100%"
       >

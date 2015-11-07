@@ -31,13 +31,16 @@ function render({ props, state }) {
         Location: {latitude}°N {longitude}°E <br />
         Elevation: {elevation}m
       </p>
+      <p>
+        <a href={`/stations/${props.id}`}>Show »</a>
+      </p>
       {measurementInfo}
     </div>
   );
 }
 
 function afterMount({ props }, el, setState) {
-  fetch(`/stations/${props.id}.json`)
+  fetch(`/stations/${props.id}.json`, { credentials: 'same-origin' })
     .then(res => res.json())
     .then(setState);
 }
