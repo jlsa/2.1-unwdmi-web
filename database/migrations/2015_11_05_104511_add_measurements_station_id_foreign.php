@@ -28,7 +28,7 @@ class AddMeasurementsStationIdForeign extends Migration
     public function down()
     {
         Schema::table('measurements', function (Blueprint $table) {
-            $table->drop('measurements_station_id_foreign');
+            $table->dropForeign('measurements_station_id_foreign');
         });
     }
 }
