@@ -68,4 +68,13 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @return Redirection to intended path with message
+     */
+    protected function authenticated(){
+        return redirect()->intended($this->redirectPath())->with('status', 'Login Succesfull');;
+    }
 }

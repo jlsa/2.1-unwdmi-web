@@ -6,5 +6,5 @@
         {{ session('error') }}
         </div>
     @endif
-    <div class="title">Laravel 5</div>
+    <div class="title">Welcome</div>
 @endsection

@@ -25,6 +25,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="">Raw Data</a>
             </li>
+            @if (Auth::user())
+                <li class="navbar-link pull-right">
+                    <a class="nav-link" href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
+                </li>
+            @else
+                <li class="navbar-link pull-right">
+                    <a class="nav-link" href="{{ action('Auth\AuthController@getLogin') }}">Login</a>
+                </li>
+            @endif
+
         </ul>
     </nav>
 
