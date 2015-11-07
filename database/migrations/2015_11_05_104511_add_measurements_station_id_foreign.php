@@ -12,7 +12,7 @@ class AddMeasurementsStationIdForeign extends Migration
      */
     public function up()
     {
-        Schema::table('station', function (Blueprint $table) {
+        Schema::table('measurements', function (Blueprint $table) {
             $table->foreign('station_id')
                 ->references('id')
                 ->on('stations')
