@@ -12,7 +12,7 @@ class AddMeasurementsStationIdForeign extends Migration
      */
     public function up()
     {
-        Schema::table('station', function (Blueprint $table) {
+        Schema::table('measurements', function (Blueprint $table) {
             $table->foreign('station_id')
                 ->references('id')
                 ->on('stations')
@@ -27,8 +27,8 @@ class AddMeasurementsStationIdForeign extends Migration
      */
     public function down()
     {
-        Schema::table('station', function (Blueprint $table) {
-            $table->drop('measurements_station_id_foreign');
+        Schema::table('measurements', function (Blueprint $table) {
+            $table->dropForeign('measurements_station_id_foreign');
         });
     }
 }
