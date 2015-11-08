@@ -49,17 +49,6 @@ class GenerateDownloadFiles extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->rootFolder = base_path().'/resources/measurements/';
-        $this->folder = $this->rootFolder;
-        $finished = File::get($this->rootFolder.'finished.txt');
-        $this->current = $this->getNext($finished);
-        $delete = $this->getNext($this->current);
-
-        if (!File::cleanDirectory($this->rootFolder.'session '.$delete)) {
-            throwException(new \Exception("Directory not cleaned"));
-        }
-        $this->folder .='session '.$this->current.'/';
-
     }
 
     private function getNext($value)
@@ -78,6 +67,17 @@ class GenerateDownloadFiles extends Command
      */
     public function handle()
     {
+        $this->rootFolder = base_path().'/resources/measurements/';
+        $this->folder = $this->rootFolder;
+        $finished = File::get($this->rootFolder.'finished.txt');
+        $this->current = $this->getNext($finished);
+        $delete = $this->getNext($this->current);
+
+        if (!File::cleanDirectory($this->rootFolder.'session '.$delete)) {
+            throw new \Exception("Directory not cleaned");
+        }
+        $this->folder .='session '.$this->current.'/';
+
         $counter = 1;
         $measurementsCounter = 0;
         $file = fopen($this->folder.'file'.$counter.'.csv', "w");
