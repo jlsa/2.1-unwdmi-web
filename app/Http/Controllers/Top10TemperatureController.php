@@ -27,20 +27,18 @@ class Top10TemperatureController extends Controller
 
         $stations = Station::where('longitude', $longitude)->get();
 
-        foreach ($stations as $station) {
+        //TODO: remove this after demoderp. Client wants a little margin on the longitude
+        //$stations = Station::whereBetween('longitude', [135.4, 136])->get();
+
             $measurements = Measurement::with('station')
+                            ->whereIn('station_id', $stations->pluck('id'))
                             ->where('time', '>=', Carbon::now()->subDay())
-                            ->groupBy('station_id')
-                            ->groupBy('id')
                             ->orderBy('temperature', 'desc')
                             ->take(10)
                             ->get();
 
-            foreach ($measurements as $measurement) {
-                $data[$station->id][] = $measurement->temperature;
-            }
-        }
 
-        return view('weather.temperatures', $data);
+        return view('measurement.overview_nopage', [
+            'measurements'=> $measurements]);
     }
 }

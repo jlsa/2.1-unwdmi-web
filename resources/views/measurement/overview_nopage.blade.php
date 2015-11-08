@@ -3,13 +3,15 @@
 @section('title','Measurements')
 
 @section('content')
-<div class="row">
+<div class="row m-t-md">
     <div class="col-md-12">
-        {!! $measurements->render() !!}
+    <h1>Temperatures Kyoto</h1>
+    On this page you can find the top ten temperatures on the same longitude as Kyoto.
     </div>
 </div>
+
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 m-t-md">
         <table class="table table-bordered table-striped">
             <thead class="header_rotate">
                 <tr>
@@ -74,7 +76,6 @@
             </tr>
             @endforeach
         </table>
-        {!! $measurements->render() !!}
     </div>
 </div>
 @endsection
