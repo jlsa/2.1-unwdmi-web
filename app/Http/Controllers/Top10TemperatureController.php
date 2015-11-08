@@ -39,6 +39,6 @@ class Top10TemperatureController extends Controller
 
 
         return view('measurement.overview_nopage', [
-            'measurements'=> $measurements->paginate(15)]);
+            'measurements'=> $measurements]);
     }
 }
