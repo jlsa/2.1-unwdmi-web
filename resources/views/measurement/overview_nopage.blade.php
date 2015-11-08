@@ -3,24 +3,31 @@
 @section('title','Measurements')
 
 @section('content')
-<div class="row">
+<div class="row m-t-md">
     <div class="col-md-12">
-        <table class="table">
-            <thead>
+    <h1>Temperatures Kyoto</h1>
+    On this page you can find the top ten temperatures on the same longitude as Kyoto.
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 m-t-md">
+        <table class="table table-bordered table-striped">
+            <thead class="header_rotate">
                 <tr>
-                    <th>station_id</th>
-                    <th>time</th>
-                    <th>temperature</th>
-                    <th>dew_point</th>
-                    <th>station_pressure</th>
-                    <th>sea_level_pressure</th>
-                    <th>visibility</th>
-                    <th>precipitation</th>
-                    <th>snow_depth</th>
-                    <th>events</th>
-                    <th>cloud_cover</th>
-                    <th>wind_direction</th>
-                    <th>wind_speed</th>
+                    <th><div>Station</div></th>
+                    <th><div>Time</div></th>
+                    <th><div>Temperature</div></th>
+                    <th><div>Dew point</div></th>
+                    <th><div>Station Pressure</div></th>
+                    <th><div>Sea Level Pressure</div></th>
+                    <th><div>Visibility</div></th>
+                    <th><div>Precipitation</div></th>
+                    <th><div>Snow Depth</div></th>
+                    <th><div>Events</div></th>
+                    <th><div>Cloud Cover</div></th>
+                    <th><div>Wind Direction</div></th>
+                    <th><div>Wind Speed</div></th>
                 </tr>
             </thead>
             @foreach ($measurements as $measurement)

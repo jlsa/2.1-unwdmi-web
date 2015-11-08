@@ -5,10 +5,17 @@ $border-radius-sm:          0rem;
 
 $navbar-dark-color:         rgba(255,255,255,1);
 
+
+
+
+
+
+
 @import "bootstrap/scss/bootstrap";
 @import "leaflet/dist/leaflet.css";
 
 @import "./components/map.scss";
+@import "./components/mixins.scss";
 
 $navbar-font-height: 1.5rem;
 $navbar-link-vertical-padding: 0.425rem;
@@ -21,4 +28,15 @@ $navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $n
   height: 100%;
   top: 0;
   padding-top: $navbar-height;
+}
+
+
+.table .header_rotate th{
+    height: 12rem;
+    white-space: nowrap;
+}
+
+.table .header_rotate th div {
+    @include rotate(-90)
+    width: 1rem;
 }
