@@ -11,6 +11,7 @@ class StationTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('stations')->truncate();
         $insertArray = array();
         $stations = file_get_contents(base_path().'/resources/stations.tsv');
         $stationArray = explode(PHP_EOL, $stations);
