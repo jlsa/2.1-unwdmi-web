@@ -18,8 +18,8 @@ function render({ props }) {
 }
 
 function afterMount({ props, state }, el, setState) {
-  const tiles = leaflet.tileLayer('https://maps.wikimedia.org/osm/{z}/{x}/{y}.png', {
-    attribution: 'Map data ⓒ <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+  const tiles = leaflet.tileLayer('http://{s}.tile.openstreetmap.se/hydda/base/{z}/{x}/{y}.png', {
+    attribution: 'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> — Map data ⓒ <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> contributors'
   });
   const markers = props.children.map(({ attributes }) => {
     const { id, name, latitude, longitude } = attributes;
