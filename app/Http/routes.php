@@ -13,7 +13,6 @@
 
 
 
-
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', 'PagesController@index');
@@ -46,13 +45,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/create','Admin\AdminPanelController@showUser');
     Route::post('admin/create','Admin\AdminPanelController@createUser');
 });
-
-
-
-
-
-
-
 
 
 // Authentication routes...

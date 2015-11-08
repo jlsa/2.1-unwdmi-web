@@ -33,7 +33,7 @@ class DownloadController extends Controller
                 'precipitation',
                 'snow_depth',
             ],
-            'others' => [
+            'showOnlyFields' => [
                 'events'
             ]
         ],
@@ -43,7 +43,7 @@ class DownloadController extends Controller
                 'latitude',
                 'elevation'
             ],
-            'others' => [
+            'nameFields' => [
                 'name',
                 'country'
             ]
@@ -51,6 +51,16 @@ class DownloadController extends Controller
     ];
 
 
+    public function view()
+    {
+        $field['numberFields'] = array_merge(
+            self::FIELDS['measurements']['numberFields'],
+            self::FIELDS['stations']['numberFields']
+        );
+        $field['nameFields'] = self::FIELDS['stations']['nameFields'];
+        $field['showOnlyFields'] = ['events'];
+        return view('weather.export', ['fields' => $field ]);
+    }
     /**
      * Index: The main function in this class
      * This is the function where the data is received
@@ -174,12 +184,13 @@ class DownloadController extends Controller
     private function numberFieldsStation($query)
     {
         foreach ($this->filter as $property => $settings) {
-            if (in_array($this->filter, self::$FIELDS['stations']['numberFields'])) {
+
+            if (in_array($property, self::FIELDS['stations']['numberFields'])) {
                 if (!$this->isEmpty($settings['min'])) {
-                    $query = $query->where($this->filter, '>=', $settings['min']);
+                    $query = $query->where($property, '>=', $settings['min']);
                 }
                 if (!empty($settings['max'])) {
-                    $query = $query->where([$this->filter, '<=', $settings['max']]);
+                    $query = $query->where([$property, '<=', $settings['max']]);
                 }
             }
         }
@@ -187,36 +198,24 @@ class DownloadController extends Controller
     }
 
     /**
-     * Progresses the country for the measurement
+     * the processor of the name fields for ths stations
      * @param $query - query where the filters needs to be applied on
      * @return mixed $query - query with the filters applied on it
      */
-    private function progressCountry($query)
+    private function nameFieldsStation($query)
     {
-        if (!empty($this->filter['country'])) {
-            $countryProperties = $this->filter['country'];
-            if (!$this->isEmpty($countryProperties['in']) ||  $countryProperties['in']=="null") {
-                $query = $query->whereIn('country', $countryProperties['in']);
-            } elseif (!$this->isEmpty($countryProperties['notIn'])) {
-                $query = $query->whereNotIn('country', $countryProperties['notIn']);
+        foreach ($this->filter as $property => $settings) {
+            if(in_array($this->filter, self::FIELDS['stations']['nameFields'])) {
+                if (!$this->isEmpty($settings['in'])) {
+                    $query = $query->whereIn($property, $settings['in']);
+                } elseif (!$this->isEmpty($settings['notIn'])) {
+                    $query = $query->whereNotIn($property, $settings['notIn']);
+                }
             }
         }
         return $query;
     }
 
-    /**
-     * Progresses the name for the country.
-     * If set, the name of the station must be this.
-     * @param $query - query where the filters needs to be applied on
-     * @return mixed $query - query with the filters applied on it
-     */
-    private function progressName($query)
-    {
-        if (!empty($this->filter['name']['name'])) {
-            $query = $query->where('name', $this->filter['name']['name']);
-        }
-        return $query;
-    }
 
     /**
      * Adds the station and his requirements
@@ -227,8 +226,7 @@ class DownloadController extends Controller
     {
         $query->whereHas('station', function ($query) {
             $this->numberFieldsStation($query);
-            $this->progressCountry($query);
-            $this->progressName($query);
+            $this->nameFieldsStation($query);
         });
         return $query;
     }
