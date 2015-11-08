@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         \Leertaak5\Console\Commands\Inspire::class,
         \Leertaak5\Console\Commands\ESLintCommand::class,
         \Leertaak5\Console\Commands\PHPCSCommand::class,
+        \Leertaak5\Console\Commands\GenerateDownloadFiles::class,
     ];
 
     /**
@@ -27,6 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('inspire')
-                 ->hourly();
+            ->hourly();
+        $schedule->command('genraw:all')->everyMinute()->withoutOverlapping();
     }
 }
