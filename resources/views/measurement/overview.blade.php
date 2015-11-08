@@ -32,7 +32,7 @@
             <tr>
                 <td>
                     <a href="{{ action('StationsController@show', $measurement->station_id) }}">
-                        {{ $measurement->station_id }}
+                        {{ title_case($measurement->station->country) }} - {{ title_case($measurement->station->name) }}
                     </a>
                 </td>
                 <td>
