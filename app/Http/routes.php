@@ -46,6 +46,11 @@ Route::get('rainmostrecent', [
     'uses' => 'RainfallController@showMostRecent'
 ]);
 
+Route::get('download', [
+    'middleWhere' => 'auth',
+    'uses' => 'DownloadController@index'
+]);
+
 // Authentication routes...
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
