@@ -11,6 +11,7 @@ $navbar-vertical-padding: 0.5rem;
 $navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $navbar-vertical-padding;
 $navbar-dark-hover-color: #222;
 
+
 @import "bootstrap/scss/bootstrap";
 @import "leaflet/dist/leaflet.css";
 
@@ -18,6 +19,9 @@ $navbar-dark-hover-color: #222;
 @import "./components/weather-event.scss";
 @import "./components/mixins.scss";
 
+body {
+    background-image: url('../images/bg.gif');
+}
 
 .page-title {
     padding: 2rem 0;

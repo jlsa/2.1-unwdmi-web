@@ -14,7 +14,7 @@
 <div class="row">
 
     <div class="col-sm-4">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
             <tbody>
                 <tr>
                     <th class="col-md-4 text-right">Id:</th>
