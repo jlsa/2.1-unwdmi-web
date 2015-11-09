@@ -9,6 +9,12 @@ import titleCase from 'title-case';
 import values from 'object-values';
 import StationPopup from './Map/Station';
 
+function sizeFor(count) {
+  if (count < 10) return 'small';
+  if (count < 30) return 'medium';
+  return 'large';
+}
+
 const defaultProps = {
   width: 800,
   height: 480,
@@ -55,7 +61,7 @@ function afterMount({ props, state }, el, setState) {
     maxClusterRadius: 40,
     iconCreateFunction(cluster) {
       const count = cluster.getChildCount();
-      const size = count < 10 ? 'small' : count < 30 ? 'medium' : 'large';
+      const size = sizeFor(count);
       return leaflet.divIcon({
         iconSize: sizes[size],
         html: count,
@@ -70,11 +76,11 @@ function afterMount({ props, state }, el, setState) {
     radius: 15,
     max: 1,
     gradient: {
-        0.1: 'blue',
-        0.3: 'cyan',
-        0.5: 'lime',
-        0.7: 'yellow',
-        0.9: 'red'
+      0.1: 'blue',
+      0.3: 'cyan',
+      0.5: 'lime',
+      0.7: 'yellow',
+      0.9: 'red'
     },
     minOpacity: 0.1
   });
