@@ -19,25 +19,26 @@ class AllWeatherDataController extends Controller
      */
     public function show()
     {
-        $data = array();
-
         $longitude = 135.733;
 
-        $stations = Station::where('longitude', $longitude)->get();
+        $stations = Station::where('longitude', $longitude)
+            ->with(['measurements' => function ($query) {
+                $query->where('time', '>=', Carbon::now()->subWeek())
+                      ->where('temperature', '<', 20);
+            }])
+            ->get();
 
-        foreach ($stations as $station) {
-            $measurements = Measurement::with('station')
-                            ->where('time', '>=', Carbon::now()->subWeek())
-                            ->where('temperature', '<', 20)
-                            ->groupBy('station_id')
-                            ->groupBy('id')
-                            ->get();
+        $measurements = $stations->pluck('measurements')->flatten();
 
-            foreach ($measurements as $measurement) {
-                $data[$station->id][] = $measurement;
-            }
-        }
-
-        return $data;
+        return [
+            'stations' => $stations->map(function ($station) {
+                return [
+                    'id' => $station->id,
+                    'name' => $station->name,
+                    'country' => $station->country
+                ];
+            }),
+            'measurements' => $measurements
+        ];
     }
 }
