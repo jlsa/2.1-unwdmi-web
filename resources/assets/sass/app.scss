@@ -12,12 +12,18 @@ $navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $n
 $navbar-dark-hover-color: #222;
 
 
+$pagination-active-color: #fff;
+$pagination-active-bg: rgb(97, 132, 134);
+$pagination-active-border: #ccc;
+
 @import "bootstrap/scss/bootstrap";
 @import "leaflet/dist/leaflet.css";
 
 @import "./components/map.scss";
 @import "./components/weather-event.scss";
 @import "./components/mixins.scss";
+
+
 
 body {
     background-image: url('../images/bg.gif');
