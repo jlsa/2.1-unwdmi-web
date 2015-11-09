@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>UNWDMI - @yield('title')</title>
+    <title>Weather Data Tool - Kyoto University - @yield('title')</title>
 
     <link rel="stylesheet" href="{{ asset('style/app.css') }}">
 </head>
 <body>
     <nav class="navbar navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">UNWDMI</a>
+        <a class="navbar-brand" href="#">
+            <img src="{{ asset('images/logo.jpeg') }}" alt="Kyoto University">
+        </a>
         <ul class="nav navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="{{ action('MeasurementsController@top10') }}">Temperatures</a>

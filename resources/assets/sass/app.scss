@@ -17,6 +17,10 @@ $navbar-link-vertical-padding: 0.425rem;
 $navbar-vertical-padding: 0.5rem;
 $navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $navbar-vertical-padding;
 
+.navbar-brand img {
+    width: 3rem;
+}
+
 .full-page {
   width: 100%;
   position: absolute;
@@ -25,7 +29,6 @@ $navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $n
   padding-top: $navbar-height;
   z-index: -1;
 }
-
 
 .table .header_rotate th{
     height: 12rem;
