@@ -40,7 +40,7 @@ class Top10TemperatureController extends Controller
                             ->get();
 
 
-        return view('measurement.overview_nopage', [
+        return view('measurement.top10', [
             'measurements'=> $measurements]);
     }
 }
