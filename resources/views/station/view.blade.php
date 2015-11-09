@@ -12,42 +12,46 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12"
+
+    <div class="col-sm-4">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th class="col-md-4 text-right">Id:</th>
+                    <td class="col-md-8">{{ $station->id }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-4 text-right">Name:</th>
+                    <td class="col-md-8">{{ title_case($station->name) }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-4 text-right">Country:</th>
+                    <td class="col-md-8">{{ title_case($station->country) }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-4 text-right">Latitude:</th>
+                    <td class="col-md-8">{{ $station->latitude }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-4 text-right">Longitude:</th>
+                    <td class="col-md-8">{{ $station->longitude }}</td>
+                </tr>
+                <tr>
+                    <th class="col-md-4 text-right">Elevation:</th>
+                    <td class="col-md-8">{{ $station->elevation }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-8"
          style="height: 300px;">
-        <span class="data-map" data-insert="map"
+        <span data-insert="map"
               data-lat="{{ $station->latitude }}"
               data-lon="{{ $station->longitude }}"
               data-zoom="9"></span>
     </div>
 </div>
 
-<table class="table">
-    <tr>
-        <tr>
-            <td>Id</td>
-            <td>{{ $station->id }}</td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>{{ title_case($station->name) }}</td>
-        </tr>
-        <tr>
-            <td>Country</td>
-            <td>{{ title_case($station->country) }}</td>
-        </tr>
-        <tr>
-            <td>Latitude</td>
-            <td>{{ $station->latitude }}</td>
-        </tr>
-        <tr>
-            <td>Longitude</td>
-            <td>{{ $station->longitude }}</td>
-        </tr>
-        <tr>
-            <td>Elevation</td>
-            <td>{{ $station->elevation }}</td>
-        </tr>
-    </tr>
-</table>
+
 
 @endsection
