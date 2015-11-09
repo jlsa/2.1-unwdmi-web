@@ -3,7 +3,7 @@
 @section('title','Export')
 
 @section('content')
-    <form method="get" action()>
+    <form method="get" action="{{action('DownloadController@download')}}">
         @foreach($fields['numberFields'] as $numberField)
             <div class="card">
                 <div class="card-header">{{ $numberField }}</div>
@@ -14,11 +14,11 @@
                     </div>
                     <div class="form-group">
                         <label for="{{ $numberField }}-min">minimum: </label>
-                        <input type="text" name="filter[{{ $numberField }}][min]]" id="show{{ $numberField }}-min" class="form-control">
+                        <input type="text" name="filter[{{ $numberField }}][min]" id="show{{ $numberField }}-min" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="{{ $numberField }}-max">maximum: </label>
-                        <input type="text" name="filter[{{ $numberField }}][max]]" id="show{{ $numberField }}-max" class="form-control">
+                        <input type="text" name="filter[{{ $numberField }}][max]" id="show{{ $numberField }}-max" class="form-control">
                     </div>
                 </div>
             </div>

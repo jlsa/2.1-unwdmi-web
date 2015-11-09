@@ -36,7 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('rainmostrecent','RainfallController@showMostRecent');
 
     //Export routes
-    Route::get('download','DownloadController@index');
+    Route::get('export','DownloadController@index');
+    Route::get('export/download', 'DownloadController@download');
     Route::get('downloadCount', 'DownloadController@count');
 
     //Administrator panel routes...

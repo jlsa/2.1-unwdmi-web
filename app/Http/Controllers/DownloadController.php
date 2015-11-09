@@ -51,7 +51,7 @@ class DownloadController extends Controller
     ];
 
 
-    public function view()
+    public function index()
     {
         $field['numberFields'] = array_merge(
             self::FIELDS['measurements']['numberFields'],
@@ -66,7 +66,7 @@ class DownloadController extends Controller
      * This is the function where the data is received
      * @param Request $request
      */
-    public function index(Request $request)
+    public function download(Request $request)
     {
         $startValue = $this->start($request);
         $size = $startValue[0];
