@@ -15,36 +15,29 @@ Route::get('/', ['middleware' => 'auth', function () {
     return view('welcome');
 }]);
 
-Route::get('stations/{id}.json', 'StationsController@jsonShow');
-Route::get('stations.json', 'StationsController@jsonIndex');
 
-Route::get('stations/measurements/{id}', 'StationsController@showMeasurements');
-Route::get('stations/{id}', 'StationsController@show');
-Route::get('stations', 'StationsController@index');
-
-
-Route::get('kyoto-longitude', [
-    'middleware' => 'auth',
-    'uses' => 'AllWeatherDataController@show'
-]);
-Route::get('measurements/{id}', 'MeasurementsController@show');
-Route::get('measurements', 'MeasurementsController@index');
-
-Route::get('temperatures', [
-    'middleware' => 'auth',
-    'uses' => 'Top10TemperatureController@show'
-]);
+Route::group(['middleware' => 'auth'], function () {
+   Route::get('stations/{id}.json', 'StationsController@jsonShow');
+   Route::get('stations.json', 'StationsController@jsonIndex');
+   Route::get('stations/measurements/{id}', 'StationsController@showMeasurements');
+   Route::get('stations/{id}', 'StationsController@show');
+   Route::get('stations', 'StationsController@index');
 
 
-Route::get('world', 'RainfallController@index');
-Route::get('measurements.json', [
-    'middleware' => 'auth',
-    'uses' => 'RainfallController@showPerStation'
-]);
-Route::get('rainmostrecent', [
-    'middleware' => 'auth',
-    'uses' => 'RainfallController@showMostRecent'
-]);
+   Route::get('measurements/{id}', 'MeasurementsController@show');
+   Route::get('measurements', 'MeasurementsController@index');
+   Route::get('kyoto-longitude', 'MeasurementsController@kyotoLongitude');
+   Route::get('temperatures', 'MeasurementsController@top10');
+
+
+   Route::get('world', 'RainfallController@index');
+   Route::get('measurements.json', 'RainfallController@showPerStation');
+   Route::get('rainmostrecent','RainfallController@showMostRecent');
+});
+
+
+
+
 
 Route::get('download', [
     'middleware' => 'auth',
