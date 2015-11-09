@@ -5,6 +5,17 @@ $border-radius-sm:          0rem;
 
 $navbar-dark-color:         rgba(255,255,255,1);
 
+$navbar-font-height: 1.5rem;
+$navbar-link-vertical-padding: 0.425rem;
+$navbar-vertical-padding: 0.5rem;
+$navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $navbar-vertical-padding;
+$navbar-dark-hover-color: #222;
+
+
+$pagination-active-color: #fff;
+$pagination-active-bg: rgb(97, 132, 134);
+$pagination-active-border: #ccc;
+
 @import "bootstrap/scss/bootstrap";
 @import "leaflet/dist/leaflet.css";
 
@@ -12,10 +23,27 @@ $navbar-dark-color:         rgba(255,255,255,1);
 @import "./components/weather-event.scss";
 @import "./components/mixins.scss";
 
-$navbar-font-height: 1.5rem;
-$navbar-link-vertical-padding: 0.425rem;
-$navbar-vertical-padding: 0.5rem;
-$navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $navbar-vertical-padding;
+
+
+body {
+    background-image: url('../images/bg.gif');
+}
+
+.page-title {
+    padding: 2rem 0;
+}
+
+.navbar-brand img {
+    width: 3rem;
+}
+
+.nav-link {
+    &:hover {
+        background-color: #fff;
+    }
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+}
 
 .full-page {
   width: 100%;
@@ -25,7 +53,6 @@ $navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $n
   padding-top: $navbar-height;
   z-index: -1;
 }
-
 
 .table .header_rotate th{
     height: 12rem;

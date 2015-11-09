@@ -1,5 +1,7 @@
 @extends('layouts.page')
 
+@section('title', 'Login Portal')
+
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -17,7 +19,7 @@
                 @endforeach
             </div>
         @endif
-        
+
         <form method="POST" action('Auth\AuthController@getLogin')>
             {!! csrf_field() !!}
             <fieldset class="form-group">
