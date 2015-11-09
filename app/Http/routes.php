@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Export routes
     Route::get('download','DownloadController@index');
+    Route::get('downloadCount', 'DownloadController@count');
 
     //Administrator panel routes...
     Route::get('admin','Admin\AdminPanelController@show');
@@ -52,10 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-Route::get('downloadCount', [
-    'middleWhere' => 'auth',
-    'uses' => 'DownloadController@count'
-]);
+
 
 // Authentication routes...
 Route::get('login', 'Auth\AuthController@getLogin');
