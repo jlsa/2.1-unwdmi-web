@@ -16,6 +16,7 @@ use Carbon\Carbon;
 
 class RainfallController extends Controller
 {
+
     public function index()
     {
         return view('weather.rainfall');

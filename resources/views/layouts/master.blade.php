@@ -14,13 +14,13 @@
         <a class="navbar-brand" href="#">UNWDMI</a>
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ action('Top10TemperatureController@show') }}">Temperatures</a>
+                <a class="nav-link" href="{{ action('MeasurementsController@top10') }}">Temperatures</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ action('RainfallController@index') }}">Rainfall</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ action('AllWeatherDataController@show') }}">Kyoto Longitude</a>
+                <a class="nav-link" href="{{ action('MeasurementsController@kyotoLongitude') }}">Kyoto Longitude</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ action('DownloadController@index') }}">Raw Data</a>
