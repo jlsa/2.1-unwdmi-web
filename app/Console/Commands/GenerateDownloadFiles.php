@@ -59,7 +59,9 @@ class GenerateDownloadFiles extends Command
         $measurementsCounter = 0;
         $file = fopen($folder.'file'.$counter.'.csv', "w");
         $maxRows = self::MAX_ROWS-500;
-        Measurement::with('station')->orderBy('time', 'asc')
+        Measurement::with('station')
+            ->where('time', '>', Carbon::now()->subMonths(3))
+            ->orderBy('time', 'asc')
             ->chunk(500, function ($measurements) use ($folder, &$file, &$measurementsCounter, &$counter, $maxRows) {
                 if ($measurementsCounter>$maxRows) {
                     echo "measurements: ".$measurementsCounter."\n";
