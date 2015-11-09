@@ -19,36 +19,17 @@ class AllWeatherDataController extends Controller
      */
     public function show(Request $request)
     {
-        $scope = $request->input('scope', null);
         $longitude = 135.733;
 
-        $stations = Station::where('longitude', $longitude)
-            ->select('id', 'name', 'country')
-            ->with(['measurements' => function ($query) use ($scope) {
-                $query->where('time', '>=', Carbon::now()->subWeek())
-                      ->where('temperature', '<', 20)
-                      ->orderBy('time', 'desc');
+        $stations = Station::where('longitude', $longitude)->get();
+        $measurements = Measurement::with('station')
+            ->whereIn('station_id', $stations->lists('id'))
+            ->where('time', '>=', Carbon::now()->subWeek())
+            ->where('temperature', '<', 20)
+            ->orderBy('time', 'desc');
 
-                if ($scope) {
-                    $query->select($scope);
-                    $query->addSelect('station_id');
-                }
-            }])
-            ->get();
-
-        $measurements = $stations
-            ->pluck('measurements')
-            ->flatten();
-
-        return [
-            'stations' => $stations->map(function ($station) {
-                return [
-                    'id' => $station->id,
-                    'name' => $station->name,
-                    'country' => $station->country
-                ];
-            }),
-            'measurements' => $measurements
-        ];
+        return view('measurement.overview', [
+            'measurements' => $measurements->paginate(50)
+        ]);
     }
 }
