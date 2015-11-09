@@ -11,19 +11,23 @@ use Leertaak5\Http\Controllers\Controller;
 class AdminPanelController extends Controller
 {
     /**
-     * 
+     *
      */
     public function show()
     {
-        if(!$this->checkRights())
-            return redirect('/')->with('error', 'Access denied.');
+        if (!$this->checkRights()) {
+            return redirect('/')
+                ->with('error', 'Access denied.');
+        }
         return view('admin.home');
     }
 
     public function createUser(Request $request)
     {
-        if(!$this->checkRights())
-            return redirect('/')->with('error', 'Access denied.');
+        if (!$this->checkRights()) {
+            return redirect('/')
+                ->with('error', 'Access denied.');
+        }
         $this->validate($request, [
             'name' => 'required|max:255',
             'email' => 'required|max:255|email|unique:users,email',
@@ -44,7 +48,8 @@ class AdminPanelController extends Controller
 
         User::create($data);
 
-        return redirect('admin')->with('message', "Account '{$email}' was created!");
+        return redirect('admin')
+            ->with('message', 'Account ""' . $email . '" was created!');
     }
 
     public function showUser()
@@ -54,16 +59,19 @@ class AdminPanelController extends Controller
 
     public function showCreateUser()
     {
-        if(!$this->checkRights())
-            return redirect('/')->with('error', 'Access denied.');
+        if (!$this->checkRights()) {
+            return redirect('/')
+                ->with('error', 'Access denied.');
+        }
         return view('admin.create_user');
     }
 
     public function checkRights()
     {
         //Check if user is an admin. If not, die and return a message.
-        if(Auth::user()->rights == 0)
+        if (Auth::user()->rights == 0) {
             return false;
+        }
         return true;
     }
 }
