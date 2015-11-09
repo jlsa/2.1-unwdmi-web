@@ -11,7 +11,7 @@
 </head>
 <body>
     <nav class="navbar navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="{{ asset('images/logo.jpeg') }}" alt="Kyoto University">
         </a>
         <ul class="nav navbar-nav">
