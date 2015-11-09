@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar navbar-dark bg-primary">
         <a class="navbar-brand" href="{{ action('PagesController@index') }}">
-            <img src="{{ asset('images/logo.jpeg') }}" alt="Kyoto University">
+            <img src="{{ asset('images/logo.png') }}" alt="Kyoto University">
         </a>
         <ul class="nav navbar-nav">
             <li class="nav-item">
