@@ -13,7 +13,6 @@
 
 
 
-
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', 'PagesController@index');
@@ -37,7 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('rainmostrecent','RainfallController@showMostRecent');
 
     //Export routes
-    Route::get('download','DownloadController@index');
+    Route::get('export','DownloadController@index');
+    Route::get('export/download', 'DownloadController@download');
     Route::get('downloadCount', 'DownloadController@count');
 
     //Administrator panel routes...
@@ -46,13 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/create','Admin\AdminPanelController@showUser');
     Route::post('admin/create','Admin\AdminPanelController@createUser');
 });
-
-
-
-
-
-
-
 
 
 // Authentication routes...
