@@ -84,7 +84,6 @@ function afterMount({ props, state }, el, setState) {
     },
     minOpacity: 0.1
   });
-  layers.push(heat);
 
   const map = leaflet.map(el, assign({}, props, { layers }));
   setState({ map, heatLayer: heat });
@@ -92,13 +91,19 @@ function afterMount({ props, state }, el, setState) {
 
 function afterRender({ props, state }) {
   const { heatMap, children } = props;
-  const { heatLayer } = state;
+  const { heatLayer, map } = state;
+
+  if (!map) return;
+
   if (heatMap && heatLayer) {
+    map.addLayer(heatLayer);
     const maxPoint = max(values(heatMap));
     const heatPoints = children.map(({ attributes }) =>
       [ attributes.latitude, attributes.longitude, heatMap[attributes.id] / maxPoint ]
     );
     heatLayer.setLatLngs(heatPoints);
+  } else if (!heatMap) {
+    map.removeLayer(heatLayer);
   }
 }
 

@@ -11,23 +11,25 @@ function update(heatMapUrl) {
 
 function initialState() {
   return {
-    heatMap: {}
+    heatMap: false
   };
 }
 
 function render({ props, state }) {
   const { heatMap } = state;
   return (
-    <Map {...props} heatMap={heatMap} />
+    <Map heatMap={heatMap} {...props} />
   );
 }
 
 function afterMount({ props }, el, setState) {
   const { heatMapUrl, ...attrs } = props;
   const nxt = () => {
-    update(heatMapUrl).then(setState).then(() => {
-      setTimeout(nxt, INTERVAL);
-    });
+    if (heatMapUrl) {
+      update(heatMapUrl).then(setState).then(() => {
+        setTimeout(nxt, INTERVAL);
+      });
+    }
   };
   nxt();
 }
