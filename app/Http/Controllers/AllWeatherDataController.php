@@ -21,11 +21,13 @@ class AllWeatherDataController extends Controller
     {
         $longitude = 135.733;
 
-        $stations = Station::where('longitude', $longitude)->get();
         $measurements = Measurement::with('station')
             ->whereIn('station_id', $stations->lists('id'))
             ->where('time', '>=', Carbon::now()->subWeek())
             ->where('temperature', '<', 20)
+            ->whereHas('stations', function ($sql) use ($longitude) {
+                $sql->where('longitude', '=', $longitude);
+            })
             ->orderBy('time', 'desc');
 
         return view('measurement.overview', [
