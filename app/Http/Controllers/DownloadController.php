@@ -2,11 +2,13 @@
 namespace Leertaak5\Http\Controllers;
 
 use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Leertaak5\Helpers\ZipStream;
 use Leertaak5\Http\Requests;
 use Leertaak5\Measurement;
+use Leertaak5\Station;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DownloadController extends Controller
@@ -54,12 +56,13 @@ class DownloadController extends Controller
     public function index()
     {
         $field['numberFields'] = array_merge(
-            self::FIELDS['measurements']['numberFields'],
-            self::FIELDS['stations']['numberFields']
+            self::$FIELDS['measurements']['numberFields'],
+            self::$FIELDS['stations']['numberFields']
         );
-        $field['nameFields'] = self::FIELDS['stations']['nameFields'];
+        $field['nameFields'] = self::$FIELDS['stations']['nameFields'];
         $field['showOnlyFields'] = ['events'];
-        return view('weather.export', ['fields' => $field ]);
+
+        return view('weather.export', ['fields' => $field, 'stations' => Station::all()->sortBy('name'), 'countries' => Station::distinct('country')->lists('country')->sort() ]);
     }
     /**
      * Index: The main function in this class
@@ -184,8 +187,7 @@ class DownloadController extends Controller
     private function numberFieldsStation($query)
     {
         foreach ($this->filter as $property => $settings) {
-
-            if (in_array($property, self::FIELDS['stations']['numberFields'])) {
+            if (in_array($property, self::$FIELDS['stations']['numberFields'])) {
                 if (!$this->isEmpty($settings['min'])) {
                     $query = $query->where($property, '>=', $settings['min']);
                 }
@@ -205,7 +207,7 @@ class DownloadController extends Controller
     private function nameFieldsStation($query)
     {
         foreach ($this->filter as $property => $settings) {
-            if(in_array($this->filter, self::FIELDS['stations']['nameFields'])) {
+            if(in_array($this->filter, self::$FIELDS['stations']['nameFields'])) {
                 if (!$this->isEmpty($settings['in'])) {
                     $query = $query->whereIn($property, $settings['in']);
                 } elseif (!$this->isEmpty($settings['notIn'])) {
