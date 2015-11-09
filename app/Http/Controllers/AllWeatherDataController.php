@@ -17,27 +17,20 @@ class AllWeatherDataController extends Controller
      * old. The data should only be shown if the temperature
      * is below 20 degrees Celsius.
      */
-    public function show()
+    public function show(Request $request)
     {
-        $data = array();
-
         $longitude = 135.733;
 
-        $stations = Station::where('longitude', $longitude)->get();
+        $measurements = Measurement::with('station')
+            ->where('time', '>=', Carbon::now()->subWeek())
+            ->where('temperature', '<', 20)
+            ->whereHas('station', function ($sql) use ($longitude) {
+                $sql->where('longitude', '=', $longitude);
+            })
+            ->orderBy('time', 'desc');
 
-        foreach ($stations as $station) {
-            $measurements = Measurement::with('station')
-                            ->where('time', '>=', Carbon::now()->subWeek())
-                            ->where('temperature', '<', 20)
-                            ->groupBy('station_id')
-                            ->groupBy('id')
-                            ->get();
-
-            foreach ($measurements as $measurement) {
-                $data[$station->id][] = $measurement;
-            }
-        }
-
-        return $data;
+        return view('measurement.overview', [
+            'measurements' => $measurements->paginate(50)
+        ]);
     }
 }
