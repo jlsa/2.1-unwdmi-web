@@ -5,12 +5,11 @@ $border-radius-sm:          0rem;
 
 $navbar-dark-color:         rgba(255,255,255,1);
 
-$navbar-font-height: 1.5rem;
-$navbar-link-vertical-padding: 0.425rem;
+$navbar-brand-size: 3rem;
+$navbar-brand-vertical-padding: 0.25rem;
 $navbar-vertical-padding: 0.5rem;
-$navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $navbar-vertical-padding;
+$navbar-height: $navbar-brand-size + 2 * $navbar-brand-vertical-padding + 2 * $navbar-vertical-padding;
 $navbar-dark-hover-color: #222;
-
 
 $pagination-active-color: #fff;
 $pagination-active-bg: rgb(97, 132, 134);
@@ -23,8 +22,6 @@ $pagination-active-border: #ccc;
 @import "./components/weather-event.scss";
 @import "./components/mixins.scss";
 
-
-
 body {
     background-image: url('../images/bg.gif');
 }
@@ -34,7 +31,8 @@ body {
 }
 
 .navbar-brand img {
-    width: 3rem;
+    width: $navbar-brand-size;
+    height: $navbar-brand-size;
 }
 
 .nav-link {
