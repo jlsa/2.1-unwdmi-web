@@ -1,3 +1,5 @@
+import 'es6-promise';
+
 import { render, tree } from 'deku';
 import element from 'magic-virtual-element'; // eslint-disable-line no-unused-vars
 import Map from './components/Map';
