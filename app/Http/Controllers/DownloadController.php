@@ -58,6 +58,34 @@ class DownloadController extends Controller
      */
     public function index(Request $request)
     {
+        $startValue = $this->start($request);
+        $size = $startValue[0];
+        $query = $startValue[1];
+
+        if ($size == -1) {
+            $this->sendAllInZip();
+        }
+
+        if ($size <= self::MAX_EXCEL_ROWS) {
+            $this->downLoadExcel($query);
+        } else {
+            $this->downloadCSV($query);
+        }
+    }
+
+    public function count(Request $request)
+    {
+        return $this->start($request)[0];
+    }
+
+
+    /**
+     * Counts the amount of rows for the query
+     * In case of the cron job: returns -1
+     * @param Request $request - request received from the browser
+     * @return array [count, query]
+     */
+    private function start(Request $request) {
         ini_set('memory_limit', '1024M');
         set_time_limit(0);
         if ($request->has('show')) {
@@ -70,19 +98,14 @@ class DownloadController extends Controller
         }
 
         if ($show == array_flatten(self::FIELDS) && $this->filter == []) {
-            $this->sendAllInZip();
+            return [-1, null];
         }
 
         $show  = $this->splitShow($show);
         $query = $this->setShow($show);
         $query = $this->numberFieldsMeasurement($query);
         $query = $this->progressStationQuery($query);
-
-        if ($query->count() <= self::MAX_EXCEL_ROWS) {
-            $this->downLoadExcel($query);
-        } else {
-            $this->downloadCSV($query);
-        }
+        return [$query->count(), $query];
     }
 
     /**
@@ -94,7 +117,6 @@ class DownloadController extends Controller
      */
     private function splitShow($show)
     {
-
         $select['measurements'] = array_intersect(
             array_flatten(self::FIELDS['measurements']),
             $show
