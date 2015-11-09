@@ -9,7 +9,7 @@ class EventsRenderer {
         return collect(array_combine(self::$IMAGES, str_split($events)))
             ->filter(function ($event) { return $event; })
             ->map(function ($event, $image) {
-                return '<img src="' . asset('img/' . $image . '.png') . '"
+                return '<img src="' . asset('images/' . $image . '.png') . '"
                              class="weather-event weather-event--' . $image . '"
                              alt="' . title_case($image) . '"
                              title="' . title_case($image) . '" />';
