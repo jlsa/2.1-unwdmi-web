@@ -2,12 +2,14 @@
 
 namespace Leertaak5\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Leertaak5\Http\Requests;
 use Leertaak5\Http\Controllers\Controller;
 use Leertaak5\Station;
 use Leertaak5\Measurement;
+
 use Carbon\Carbon;
+use DB;
+use Illuminate\Http\Request;
 
 /**
  * Returns an array, indexed by station numbers,
@@ -41,16 +43,17 @@ class RainfallController extends Controller
      * Returns stationName, stationId, longitude, latitude and most recent precipitation
      * per location.
      */
-    public function showMostRecent()
+    public function showHeatMapJson(Request $request)
     {
-        $maxTemp = Measurement::select(
+        $property = $request->input('property');
+        $maxTime = Measurement::select(
             'station_id',
             DB::raw('MAX(time) as time')
         )->groupBy('station_id');
 
 
         $measurements = Measurement::join(
-            DB::raw('('.$maxTemp->toSql().') "maxTime"'),
+            DB::raw('(' . $maxTime->toSql() . ') "maxTime"'),
             function ($join) {
                 $join->on('maxTime.station_id', '=', 'measurements.station_id');
                 $join->on('maxTime.time', '=', 'measurements.time');
@@ -59,13 +62,7 @@ class RainfallController extends Controller
 
         foreach ($measurements as $measurement) {
             $station = $measurement->station;
-            $data[] = array(
-                'id' => $station->id,
-                'name' => $station->name,
-                'latitude' => $station->latitude,
-                'longitude' => $station->longitude,
-                'precipitation' => $measurement->precipitation
-            );
+            $data[$station->id] = (float) $measurement->$property;
         }
         return $data;
     }
