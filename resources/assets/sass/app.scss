@@ -5,16 +5,11 @@ $border-radius-sm:          0rem;
 
 $navbar-dark-color:         rgba(255,255,255,1);
 
-
-
-
-
-
-
 @import "bootstrap/scss/bootstrap";
 @import "leaflet/dist/leaflet.css";
 
 @import "./components/map.scss";
+@import "./components/weather-event.scss";
 @import "./components/mixins.scss";
 
 $navbar-font-height: 1.5rem;
