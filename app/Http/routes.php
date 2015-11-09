@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('temperatures', 'MeasurementsController@top10');
 
     //Rainfall map routes
-    Route::get('world', 'RainfallController@index');
+    Route::get('rainfall', 'RainfallController@index');
     Route::get('measurements.json', 'RainfallController@showPerStation');
     Route::get('rainmostrecent','RainfallController@showMostRecent');
 
