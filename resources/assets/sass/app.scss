@@ -16,6 +16,7 @@ $navbar-font-height: 1.5rem;
 $navbar-link-vertical-padding: 0.425rem;
 $navbar-vertical-padding: 0.5rem;
 $navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $navbar-vertical-padding;
+$navbar-dark-hover-color: #222;
 
 .navbar-brand img {
     width: 3rem;
@@ -24,7 +25,6 @@ $navbar-height: $navbar-font-height + 2 * $navbar-link-vertical-padding + 2 * $n
 .nav-link {
     &:hover {
         background-color: #fff;
-        color: #222 !important; /* If !important isn't used then the color doesn't change */
     }
     margin: 0.5rem 0;
     padding: 0.5rem;
