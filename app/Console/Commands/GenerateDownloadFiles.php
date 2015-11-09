@@ -28,20 +28,6 @@ class GenerateDownloadFiles extends Command
     protected $description = 'generate raw file with all data.';
 
     /**
-     * The folder where the files are stored
-     *
-     * @var string
-     */
-    private $folder;
-
-    /**
-     * The root folder where all the files are stored
-     */
-    private $rootFolder;
-
-    private $current;
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -67,23 +53,14 @@ class GenerateDownloadFiles extends Command
      */
     public function handle()
     {
-        $this->rootFolder = base_path().'/resources/measurements/';
-        $this->folder = $this->rootFolder;
-        $finished = File::get($this->rootFolder.'finished.txt');
-        $this->current = $this->getNext($finished);
-        $delete = $this->getNext($this->current);
-
-        if (!File::cleanDirectory($this->rootFolder.'session '.$delete)) {
-            throw new \Exception("Directory not cleaned");
-        }
-        $this->folder .='session '.$this->current.'/';
+        list($rootFolder, $current, $folder) = $this->setFolder();
 
         $counter = 1;
         $measurementsCounter = 0;
-        $file = fopen($this->folder.'file'.$counter.'.csv', "w");
-        $maxRows = SELF::MAX_ROWS-500;
+        $file = fopen($folder.'file'.$counter.'.csv', "w");
+        $maxRows = self::MAX_ROWS-500;
         Measurement::with('station')->orderBy('time', 'asc')
-            ->chunk(500, function ($measurements) use (&$file, &$measurementsCounter, &$counter, $maxRows) {
+            ->chunk(500, function ($measurements) use ($folder, &$file, &$measurementsCounter, &$counter, $maxRows) {
                 if ($measurementsCounter>$maxRows) {
                     echo "measurements: ".$measurementsCounter."\n";
                     echo "file created: ".$counter.".csv\n";
@@ -92,8 +69,7 @@ class GenerateDownloadFiles extends Command
                         fclose($file);
                     }
                     $counter++;
-                    $file = fopen($this->folder.'file'.$counter.'.csv', "w");
-
+                    $file = fopen($folder.'file'.$counter.'.csv', "w");
                 }
                 foreach ($measurements as $measurement) {
                     $array = $measurement->toArray();
@@ -102,6 +78,29 @@ class GenerateDownloadFiles extends Command
                 }
                 $measurementsCounter+=500;
             });
-        File::put($this->rootFolder.'finished.txt', $this->current);
+        File::put($rootFolder.'finished.txt', $current);
+    }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    private function setFolder()
+    {
+        $rootFolder = base_path() . '/resources/measurements/';
+        $finished = File::get($rootFolder . 'finished.txt');
+        $current = $this->getNext($finished);
+        $folder = $rootFolder . 'session ' . $current . '/';
+        if (!File::exists($folder)) {
+            if (File::makeDirectory($folder)) {
+                throw new \Exception("Directory not created");
+            }
+            return array($rootFolder, $current, $folder);
+        } else {
+            if (!File::cleanDirectory($folder)) {
+                throw new \Exception("Directory not cleaned");
+            }
+            return array($rootFolder, $current, $folder);
+        }
     }
 }

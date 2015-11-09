@@ -51,6 +51,11 @@ Route::get('download', [
     'uses' => 'DownloadController@index'
 ]);
 
+Route::get('downloadCount', [
+    'middleWhere' => 'auth',
+    'uses' => 'DownloadController@count'
+]);
+
 // Authentication routes...
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
