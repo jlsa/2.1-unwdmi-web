@@ -1,3 +1,5 @@
+@inject('events', 'Leertaak5\Services\EventsRenderer')
+
 @extends('layouts.page')
 
 @section('title','Measurements')
@@ -60,7 +62,7 @@
                     {{ $measurement->snow_depth }}
                 </td>
                 <td>
-                    {{ $measurement->events }}
+                    {!! $events->render($measurement->events) !!}
                 </td>
                 <td>
                     {{ $measurement->cloud_cover }}
