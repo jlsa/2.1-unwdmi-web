@@ -33,6 +33,6 @@
     "whatwg-fetch": "^0.10.1"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "./node_modules/gulp/bin/gulp.js"
   }
 }
