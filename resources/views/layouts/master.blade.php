@@ -17,13 +17,13 @@
                 <a class="nav-link" href="{{ action('Top10TemperatureController@show') }}">Temperatures</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Rainfall</a>
+                <a class="nav-link" href="{{ action('RainfallController@index') }}">Rainfall</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ action('AllWeatherDataController@show') }}">Kyoto Longitude</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Raw Data</a>
+                <a class="nav-link" href="{{ action('DownloadController@index') }}">Raw Data</a>
             </li>
             @if (Auth::user())
                 <li class="navbar-link pull-right">
