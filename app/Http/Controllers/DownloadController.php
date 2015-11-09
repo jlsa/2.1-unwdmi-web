@@ -21,7 +21,7 @@ class DownloadController extends Controller
     const ROWS_PER_SHEET = 100;
 
     /** @const FIELDS - all the fields which are accessible for the client */
-    const FIELDS = [
+    public static $FIELDS = [
         'measurements' => [
             'numberFields' => [
                 'time',
@@ -91,13 +91,13 @@ class DownloadController extends Controller
         if ($request->has('show')) {
             $show = $request->input('show');
         } else {
-            $show = array_flatten(self::FIELDS);
+            $show = array_flatten(self::$FIELDS);
         }
         if ($request->has('filter')) {
             $this->filter = $request->input('filter');
         }
 
-        if ($show == array_flatten(self::FIELDS) && $this->filter == []) {
+        if ($show == array_flatten(self::$FIELDS) && $this->filter == []) {
             return [-1, null];
         }
 
@@ -118,11 +118,11 @@ class DownloadController extends Controller
     private function splitShow($show)
     {
         $select['measurements'] = array_intersect(
-            array_flatten(self::FIELDS['measurements']),
+            array_flatten(self::$FIELDS['measurements']),
             $show
         );
         $select['stations'] = array_intersect(
-            array_flatten(self::FIELDS['stations']),
+            array_flatten(self::$FIELDS['stations']),
             $show
         );
         return $select;
@@ -154,7 +154,7 @@ class DownloadController extends Controller
     private function numberFieldsMeasurement($query)
     {
         foreach ($this->filter as $property => $settings) {
-            if (in_array($property, self::FIELDS['measurements']['numberFields'])) {
+            if (in_array($property, self::$FIELDS['measurements']['numberFields'])) {
                 if (!$this->isEmpty($settings['min'])) {
                     $query = $query->where($property, '>=', $settings['min']);
                 }
@@ -174,7 +174,7 @@ class DownloadController extends Controller
     private function numberFieldsStation($query)
     {
         foreach ($this->filter as $property => $settings) {
-            if (in_array($this->filter, self::FIELDS['stations']['numberFields'])) {
+            if (in_array($this->filter, self::$FIELDS['stations']['numberFields'])) {
                 if (!$this->isEmpty($settings['min'])) {
                     $query = $query->where($this->filter, '>=', $settings['min']);
                 }
