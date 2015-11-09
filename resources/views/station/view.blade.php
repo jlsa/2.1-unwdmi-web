@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-sm-12"
          style="height: 300px;">
-        <span data-insert="map"
+        <span class="data-map" data-insert="map"
               data-lat="{{ $station->latitude }}"
               data-lon="{{ $station->longitude }}"
               data-zoom="9"></span>
