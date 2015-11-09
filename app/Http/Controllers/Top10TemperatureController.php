@@ -31,9 +31,11 @@ class Top10TemperatureController extends Controller
         //$stations = Station::whereBetween('longitude', [135.4, 136])->get();
 
             $measurements = Measurement::with('station')
-                            ->whereIn('station_id', $stations->pluck('id'))
                             ->where('time', '>=', Carbon::now()->subDay())
                             ->orderBy('temperature', 'desc')
+                            ->whereHas('station', function ($sql) use ($longitude) {
+                                    $sql->where('longitude', '=', $longitude);
+                            })
                             ->take(10)
                             ->get();
 
