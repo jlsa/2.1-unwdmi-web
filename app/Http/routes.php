@@ -22,17 +22,17 @@ Route::get('stations/measurements/{id}', 'StationsController@showMeasurements');
 Route::get('stations/{id}', 'StationsController@show');
 Route::get('stations', 'StationsController@index');
 
+
+Route::get('kyoto-longitude', [
+    'middleware' => 'auth',
+    'uses' => 'AllWeatherDataController@show'
+]);
 Route::get('measurements/{id}', 'MeasurementsController@show');
 Route::get('measurements', 'MeasurementsController@index');
 
 Route::get('temperatures', [
     'middleware' => 'auth',
     'uses' => 'Top10TemperatureController@show'
-]);
-
-Route::get('all', [
-    'middleware' => 'auth',
-    'uses' => 'AllWeatherDataController@show'
 ]);
 
 
