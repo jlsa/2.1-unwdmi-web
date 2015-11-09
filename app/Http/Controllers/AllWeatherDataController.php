@@ -17,18 +17,28 @@ class AllWeatherDataController extends Controller
      * old. The data should only be shown if the temperature
      * is below 20 degrees Celsius.
      */
-    public function show()
+    public function show(Request $request)
     {
+        $scope = $request->input('scope', null);
         $longitude = 135.733;
 
         $stations = Station::where('longitude', $longitude)
-            ->with(['measurements' => function ($query) {
+            ->select('id', 'name', 'country')
+            ->with(['measurements' => function ($query) use ($scope) {
                 $query->where('time', '>=', Carbon::now()->subWeek())
-                      ->where('temperature', '<', 20);
+                      ->where('temperature', '<', 20)
+                      ->orderBy('time', 'desc');
+
+                if ($scope) {
+                    $query->select($scope);
+                    $query->addSelect('station_id');
+                }
             }])
             ->get();
 
-        $measurements = $stations->pluck('measurements')->flatten();
+        $measurements = $stations
+            ->pluck('measurements')
+            ->flatten();
 
         return [
             'stations' => $stations->map(function ($station) {
