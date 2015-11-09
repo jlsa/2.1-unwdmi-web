@@ -47,7 +47,7 @@ Route::get('rainmostrecent', [
 ]);
 
 Route::get('download', [
-    'middleWhere' => 'auth',
+    'middleware' => 'auth',
     'uses' => 'DownloadController@index'
 ]);
 
