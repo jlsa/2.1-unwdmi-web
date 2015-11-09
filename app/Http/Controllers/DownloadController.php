@@ -90,6 +90,7 @@ class DownloadController extends Controller
      */
     public function download(Request $request)
     {
+<<<<<<< HEAD
         $this->validate($request, [
             'stationSelect' => 'exists:stations,id',
             'countrySelect' => 'exists:stations,country',
@@ -120,6 +121,9 @@ class DownloadController extends Controller
         $startValue = $this->start($request);
         $size = $startValue[0];
         $query = $startValue[1];
+=======
+        list($size,$query) = $this->start($request);
+>>>>>>> adds time constraint minimum 3 months iff more
 
         if ($size == -1) {
             $this->sendAllInZip();
@@ -144,7 +148,8 @@ class DownloadController extends Controller
      * @param Request $request - request received from the browser
      * @return array [count, query]
      */
-    private function start(Request $request) {
+    private function start(Request $request)
+    {
         ini_set('memory_limit', '1024M');
         set_time_limit(0);
         if ($request->has('show')) {
@@ -154,9 +159,10 @@ class DownloadController extends Controller
         }
         if ($request->has('filter')) {
             $this->filter = $request->input('filter');
+            $this->checkTime();
         }
 
-        if ($show == array_flatten(self::$FIELDS) && $this->filter == []) {
+        if ($show == array_flatten(self::$FIELDS) && $this->filter == [Carbon::now()->subMonths(3)]) {
             return [-1, null];
         }
 
@@ -362,5 +368,16 @@ class DownloadController extends Controller
             $zip->addFileFromPath(basename($file), $file);
         }
         $zip->finish();
+    }
+
+    /**
+     * Checks if the time is bigger than 3 months and fixes it if it's not
+     */
+    private function checkTime()
+    {
+        $start = Carbon::now()->subMonths(3);
+        if ($this->isEmpty($this->filter) || Carbon::parse($this->filter['time']['min']) <= $start) {
+            $this->filter['time']['min'] = $start;
+        }
     }
 }
