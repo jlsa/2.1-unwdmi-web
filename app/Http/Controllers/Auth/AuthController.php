@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -26,8 +28,6 @@ class AuthController extends Controller
     protected $redirectAfterLogout = '/login';
 
     protected $redirectPath = '/';
-
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
      * Create a new authentication controller instance.
@@ -74,7 +74,9 @@ class AuthController extends Controller
      *
      * @return Redirection to intended path with message
      */
-    protected function authenticated(){
-        return redirect()->intended($this->redirectPath())->with('status', 'Login Succesfull');;
+    protected function authenticated()
+    {
+        return redirect()->intended($this->redirectPath())
+            ->with('status', 'Login Successful');
     }
 }

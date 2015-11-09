@@ -9,8 +9,6 @@ use Leertaak5\Http\Requests;
 use Leertaak5\Measurement;
 use Maatwebsite\Excel\Facades\Excel;
 
-
-
 class DownloadController extends Controller
 {
     /** @var $filter array - The filters which are applied to the filter*/
@@ -60,7 +58,7 @@ class DownloadController extends Controller
      */
     public function index(Request $request)
     {
-        ini_set('memory_limit','1024M');
+        ini_set('memory_limit', '1024M');
         set_time_limit(0);
         if ($request->has('show')) {
             $show = $request->input('show');
@@ -71,7 +69,7 @@ class DownloadController extends Controller
             $this->filter = $request->input('filter');
         }
 
-        if ($show== array_flatten(self::FIELDS) && $this->filter==[]) {
+        if ($show == array_flatten(self::FIELDS) && $this->filter == []) {
             $this->sendAllInZip();
         }
 
@@ -297,6 +295,4 @@ class DownloadController extends Controller
         }
         $zip->finish();
     }
-
-
 }
