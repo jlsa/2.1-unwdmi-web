@@ -4,6 +4,6 @@
 
 @section('content')
 
-  <span data-insert="map"></span>
+  <span data-insert="map" data-heat-map="precipitation"></span>
 
 @endsection('content')
