@@ -25,7 +25,7 @@
         <div class="row">
 
             <div class="col-sm-6 form-group">
-                <h2>Station name</h2>
+                <h2>Station Name</h2>
                 <div class="form-group row">
                     <label class="col-sm-2">Filter by:</label>
                     <div class="col-sm-4 checkbox">
