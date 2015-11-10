@@ -40,10 +40,10 @@
                     {{ $measurement->time }}
                 </td>
                 <td>
-                    {{ $measurement->temperature }}
+                    {{ number_format($measurement->temperature, 1) }}°C
                 </td>
                 <td>
-                    {{ $measurement->dew_point }}
+                    {{ number_format($measurement->dew_point, 1) }}°C
                 </td>
             </tr>
             @endforeach

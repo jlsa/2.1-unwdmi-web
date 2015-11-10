@@ -41,37 +41,37 @@
                     {{ $measurement->time }}
                 </td>
                 <td>
-                    {{ $measurement->temperature }}
+                    {{ number_format($measurement->temperature, 1) }}°C
                 </td>
                 <td>
-                    {{ $measurement->dew_point }}
+                    {{ number_format($measurement->dew_point, 1) }}°C
                 </td>
                 <td>
-                    {{ $measurement->station_pressure }}
+                    {{ number_format($measurement->station_pressure, 1) }}mbar
                 </td>
                 <td>
-                    {{ $measurement->sea_level_pressure }}
+                    {{ number_format($measurement->sea_level_pressure, 1) }}mbar
                 </td>
                 <td>
-                    {{ $measurement->visibility }}
+                    {{ number_format($measurement->visibility, 1) }}km
                 </td>
                 <td>
-                    {{ $measurement->precipitation }}
+                    {{ number_format($measurement->precipitation, 2) }}cm
                 </td>
                 <td>
-                    {{ $measurement->snow_depth }}
+                    {{ number_format($measurement->snow_depth, 1) }}cm
                 </td>
                 <td>
                     {!! $events->render($measurement->events) !!}
                 </td>
                 <td>
-                    {{ $measurement->cloud_cover }}
+                    {{ number_format($measurement->cloud_cover, 1) }}%
                 </td>
                 <td>
-                    {{ $measurement->wind_direction }}
+                    {{ round($measurement->wind_direction) }}°
                 </td>
                 <td>
-                    {{ $measurement->wind_speed }}
+                    {{ number_format($measurement->wind_speed, 1) }}km/h
                 </td>
             </tr>
             @endforeach
