@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('temperatures', 'MeasurementsController@top10');
 
     //Export routes
-    Route::get('export','DownloadController@index');
+    Route::get('export', 'DownloadController@index');
     Route::post('export/download', 'DownloadController@download');
     Route::get('downloadCount', 'DownloadController@count');
 
