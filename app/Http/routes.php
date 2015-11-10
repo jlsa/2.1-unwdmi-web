@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Export routes
     Route::get('export','DownloadController@index');
-    Route::get('export/download', 'DownloadController@download');
+    Route::post('export/download', 'DownloadController@download');
     Route::get('downloadCount', 'DownloadController@count');
 
     //Administrator panel routes...
