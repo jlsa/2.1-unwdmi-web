@@ -45,6 +45,7 @@
     <div class="col-sm-8"
          style="height: 300px;">
         <span data-insert="map"
+              data-station-id="{{ $station->id }}"
               data-lat="{{ $station->latitude }}"
               data-lon="{{ $station->longitude }}"
               data-zoom="9"></span>
