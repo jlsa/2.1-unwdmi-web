@@ -83,6 +83,7 @@ class DownloadController extends Controller
             'fieldValues' => $fieldValues
             ]);
     }
+
     /**
      * Index: The main function in this class
      * This is the function where the data is received
@@ -90,7 +91,6 @@ class DownloadController extends Controller
      */
     public function download(Request $request)
     {
-<<<<<<< HEAD
         $this->validate($request, [
             'stationSelect' => 'exists:stations,id',
             'countrySelect' => 'exists:stations,country',
@@ -121,9 +121,7 @@ class DownloadController extends Controller
         $startValue = $this->start($request);
         $size = $startValue[0];
         $query = $startValue[1];
-=======
         list($size,$query) = $this->start($request);
->>>>>>> adds time constraint minimum 3 months iff more
 
         if ($size == -1) {
             $this->sendAllInZip();
@@ -159,13 +157,12 @@ class DownloadController extends Controller
         }
         if ($request->has('filter')) {
             $this->filter = $request->input('filter');
-            $this->checkTime();
         }
 
+        $this->checkTime();
         if ($show == array_flatten(self::$FIELDS) && $this->filter == [Carbon::now()->subMonths(3)]) {
             return [-1, null];
         }
-
         $show  = $this->splitShow($show);
         $query = $this->setShow($show);
         $query = $this->numberFieldsMeasurement($query);
@@ -258,8 +255,9 @@ class DownloadController extends Controller
      */
     private function nameFieldsStation($query)
     {
+
         foreach ($this->filter as $property => $settings) {
-            if(in_array($this->filter, self::$FIELDS['stations']['nameFields'])) {
+            if (in_array($property, self::$FIELDS['stations']['nameFields'])) {
                 if (!$this->isEmpty($settings['in'])) {
                     $query = $query->whereIn($property, $settings['in']);
                 } elseif (!$this->isEmpty($settings['notIn'])) {
@@ -318,10 +316,17 @@ class DownloadController extends Controller
         $data = [];
 
         $queryComplete->chunk(200, function ($measurements) use (&$data) {
-            $data = array_merge($data, $measurements->toArray());
+            $measurements = $measurements->toArray();
+            foreach ($measurements as $measurement) {
+                $measurement = array_merge($measurement, $measurement['station']);
+                unset($measurement['station_id']);
+                unset($measurement['id']);
+                unset($measurement['station']);
+                $data[] = $measurement;
+            }
         });
-        //dd($data);
         Excel::create(Carbon::today()->toDateString(), function ($excel) use ($data) {
+
             $chunks = array_chunk($data, self::ROWS_PER_SHEET);
             foreach ($chunks as $chunk) {
                 $excel->sheet('sheet', function ($sheet) use ($chunk) {
@@ -376,7 +381,7 @@ class DownloadController extends Controller
     private function checkTime()
     {
         $start = Carbon::now()->subMonths(3);
-        if ($this->isEmpty($this->filter) || Carbon::parse($this->filter['time']['min']) <= $start) {
+        if ($this->isEmpty($this->filter['time']['min']) || Carbon::parse($this->filter['time']['min']) <= $start) {
             $this->filter['time']['min'] = $start;
         }
     }
