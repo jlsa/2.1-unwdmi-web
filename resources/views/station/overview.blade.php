@@ -10,10 +10,10 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table class="table">
+        <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Country</th>
                     <th>Latitude</th>
