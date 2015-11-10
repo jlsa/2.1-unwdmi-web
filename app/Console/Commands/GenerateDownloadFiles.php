@@ -84,8 +84,9 @@ class GenerateDownloadFiles extends Command
     }
 
     /**
-     * @return array
-     * @throws \Exception
+     * prepares the folder if not ready
+     * @return array [rootfolder, current, folder]
+     * @throws \Exception directory not cleaned
      */
     private function setFolder()
     {
