@@ -23,11 +23,13 @@ function render({ props, state }) {
     </p>
   );
 
+  const latStr = latitude < 0 ? `${-latitude}°S` : `${latitude}°N`;
+  const longStr = longitude < 0 ? `${-longitude}°W` : `${longitude}°E`;
   return (
     <div class="map-marker-station" data-station-id={props.id}>
       <strong>{titleCase(name)}, {titleCase(country)}</strong>
       <p>
-        Location: {latitude}°N {longitude}°E <br />
+        Location: {latStr} {longStr} <br />
         Elevation: {elevation}m
       </p>
       <p>
