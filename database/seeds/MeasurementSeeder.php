@@ -48,7 +48,7 @@ class MeasurementSeeder extends Seeder
                 $data = [$temp];
                 for ($i = 0; $i < $this->seedAmount; $i++) {
                     // travel back in tiiime!
-                    $date->subSecond();
+                    $date->subSeconds(44);
                     $temp = [
                         'station_id' => $station->id,
                         'time' => $date->format(DateTime::ATOM),
