@@ -21,6 +21,7 @@ if (insertMap) {
         zoom={insertMap.dataset.zoom || 1}
         height="100%"
         width="100%"
+        selected={insertMap.dataset.stationId || null}
         heatMapUrl={heatMapUrl}
       >
         {stations.map(station => <Station {...station} />)}

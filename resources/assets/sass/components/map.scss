@@ -18,6 +18,11 @@ $marker-background-color: lighten($brand-primary, 60%);
       text-shadow: none;
     }
 
+    &--selected {
+      font-weight: bold;
+      background: darken($marker-background-color, 15%);
+    }
+
     &--small {
       box-shadow: 0 0 5px $marker-background-color;
     }

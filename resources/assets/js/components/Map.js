@@ -20,7 +20,8 @@ const defaultProps = {
   height: 480,
   center: [ 0, 0 ],
   zoom: 2,
-  heatMap: false
+  heatMap: false,
+  selected: null
 };
 
 function render({ props }) {
@@ -38,11 +39,13 @@ function afterMount({ props, state }, el, setState) {
   const markers = props.children.map(({ attributes }) => {
     const { id, name, latitude, longitude } = attributes;
     const el = document.createElement('div');
+    const isSelected = id == props.selected;
+    const selectionClass = isSelected ? 'map-marker--medium map-marker--selected' : 'map-marker--small';
     return leaflet.marker(
       [ latitude, longitude ],
       { icon: leaflet.divIcon({
         iconSize: leaflet.point(17, 17),
-        className: 'map-marker map-marker--station map-marker--small',
+        className: `map-marker map-marker--station ${selectionClass}`,
         html: titleCase(name)
       }) }
     )
