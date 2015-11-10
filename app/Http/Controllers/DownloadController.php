@@ -160,7 +160,7 @@ class DownloadController extends Controller
         }
 
         $this->checkTime();
-        if ($show == array_flatten(self::$FIELDS) && $this->filter == ['time' => Carbon::now()->subMonths(3)]]) {
+        if ($show == array_flatten(self::$FIELDS) && $this->filter == ['time' => Carbon::now()->subMonths(3)]) {
             return [-1, null];
         }
         $show  = $this->splitShow($show);
