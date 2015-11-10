@@ -345,7 +345,7 @@ class DownloadController extends Controller
     private function printHeaders()
     {
         header('Content-type: text/tab-separated-values');
-        header("Content-Disposition: attachment; filename=rawText.tsv");
+        header("Content-Disposition: attachment; filename=WeatherDataTool-RawData.csv");
     }
 
     /**
