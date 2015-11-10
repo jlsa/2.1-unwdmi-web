@@ -20,7 +20,7 @@ class AdminPanelController extends Controller
                 ->with('error', 'Access denied.');
         }
         return view('admin.overview',[
-            'users' => User::all()
+            'users' => User::all()->sortBy('id')
             ]);
     }
 
