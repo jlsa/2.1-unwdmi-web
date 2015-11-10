@@ -28,6 +28,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ action('DownloadController@index') }}">Export</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ action('StationsController@index') }}">Stations</a>
+            </li>
             <li class="navbar-link pull-right">
                 <a class="nav-link" href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
             </li>
