@@ -35,9 +35,9 @@
                     </div>
                 </div>
                 <fieldset class="form-group">
-                    <select multiple class="form-control" name="stationSelect" id="stationSelect">
+                    <select multiple class="form-control" name="filter[name][in][]" id="stationSelect">
                         @foreach($stations as $station)
-                        <option value="{{$station->id}}">{{title_case($station->name)}}</option>
+                        <option value="{{$station->name}}">{{title_case($station->name)}}</option>
                         @endforeach
                     </select>
                 </fieldset>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <fieldset class="form-group">
-                    <select multiple class="form-control" name="countrySelect" id="countrySelect">
+                    <select multiple class="form-control" name="filter[country][in][]" id="countrySelect">
                         @foreach($countries as $country)
                         <option value="{{$country}}">{{title_case($country)}}</option>
                         @endforeach

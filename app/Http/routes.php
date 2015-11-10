@@ -38,16 +38,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('temperatures', 'MeasurementsController@top10');
 
     //Export routes
-    Route::get('export','DownloadController@index');
+    Route::get('export', 'DownloadController@index');
     Route::post('export/download', 'DownloadController@download');
     Route::get('downloadCount', 'DownloadController@count');
 
     //Administrator panel routes...
-    Route::get('admin/create','Admin\AdminPanelController@create');
-    Route::post('admin/create','Admin\AdminPanelController@createUser');
-    Route::get('admin/{id}','Admin\AdminPanelController@show');
-    Route::get('admin','Admin\AdminPanelController@index');
-    
+    Route::get('admin/create', 'Admin\AdminPanelController@create');
+    Route::post('admin/create', 'Admin\AdminPanelController@createUser');
+    Route::get('admin/{id}', 'Admin\AdminPanelController@show');
+    Route::get('admin', 'Admin\AdminPanelController@index');
 });
 
 
