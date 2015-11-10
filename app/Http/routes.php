@@ -24,16 +24,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('stations/{id}', 'StationsController@show');
     Route::get('stations', 'StationsController@index');
 
+    //Rainfall map routes
+    Route::get('rainfall', 'RainfallController@index');
+    Route::get('measurements/heatmap.json', 'RainfallController@showHeatMapJson');
+    Route::get('measurements.json', 'RainfallController@showPerStation');
+    Route::get('rainmostrecent','RainfallController@showMostRecent');
+
     //Measurements routes
     Route::get('measurements/{id}', 'MeasurementsController@show');
     Route::get('measurements', 'MeasurementsController@index');
     Route::get('kyoto-longitude', 'MeasurementsController@kyotoLongitude');
     Route::get('temperatures', 'MeasurementsController@top10');
-
-    //Rainfall map routes
-    Route::get('rainfall', 'RainfallController@index');
-    Route::get('measurements.json', 'RainfallController@showPerStation');
-    Route::get('rainmostrecent','RainfallController@showMostRecent');
 
     //Export routes
     Route::get('export','DownloadController@index');
@@ -52,4 +53,3 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
 Route::get('logout', 'Auth\AuthController@getLogout');
-

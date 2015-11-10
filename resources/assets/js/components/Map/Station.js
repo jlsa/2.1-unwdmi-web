@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import assign from 'object-assign';
 import element from 'magic-virtual-element'; // eslint-disable-line no-unused-vars
 import titleCase from 'title-case';
 

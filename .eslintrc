@@ -1,7 +1,6 @@
 root: true
 
-extends: airbnb/base
-parser: babel-eslint
+extends: airbnb
 
 rules:
   comma-dangle: [2, never]
