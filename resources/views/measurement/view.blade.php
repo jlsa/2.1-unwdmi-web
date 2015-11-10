@@ -5,6 +5,13 @@
 @section('title','Measurement')
 
 @section('content')
+<div class="row m-t m-b">
+    <h1>Measurement</h1>
+
+    <button class="btn back-btn" onclick="history.back()">Back</button>
+</div>
+
+
 <table class="table table-bordered table-striped">
     <thead class="header_rotate">
         <tr>
