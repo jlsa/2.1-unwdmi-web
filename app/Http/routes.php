@@ -43,10 +43,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('downloadCount', 'DownloadController@count');
 
     //Administrator panel routes...
-    Route::get('admin','Admin\AdminPanelController@show');
-    Route::get('admin/create_user','Admin\AdminPanelController@showCreateUser');
-    Route::get('admin/create','Admin\AdminPanelController@showUser');
+    Route::get('admin/create','Admin\AdminPanelController@create');
     Route::post('admin/create','Admin\AdminPanelController@createUser');
+    Route::get('admin/{id}','Admin\AdminPanelController@show');
+    Route::get('admin','Admin\AdminPanelController@index');
+    
 });
 
 
