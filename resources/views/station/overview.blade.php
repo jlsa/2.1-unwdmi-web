@@ -35,10 +35,10 @@
                     {{ title_case($station->country) }}
                 </td>
                 <td>
-                    {{ $station->latitude }}
+                    {{ $station->latitude_str }}
                 </td>
                 <td>
-                    {{ $station->longitude }}
+                    {{ $station->longitude_str }}
                 </td>
                 <td>
                     {{ $station->elevation }}

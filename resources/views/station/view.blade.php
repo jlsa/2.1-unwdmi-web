@@ -29,11 +29,11 @@
                 </tr>
                 <tr>
                     <th class="col-md-4 text-right">Latitude:</th>
-                    <td class="col-md-8">{{ $station->latitude }}°N</td>
+                    <td class="col-md-8">{{ $station->latitude_str }}</td>
                 </tr>
                 <tr>
                     <th class="col-md-4 text-right">Longitude:</th>
-                    <td class="col-md-8">{{ $station->longitude }}°E</td>
+                    <td class="col-md-8">{{ $station->longitude_str }}</td>
                 </tr>
                 <tr>
                     <th class="col-md-4 text-right">Elevation:</th>

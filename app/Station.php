@@ -11,4 +11,16 @@ class Station extends Model
     {
         return $this->hasMany('Leertaak5\Measurement');
     }
+
+    public function getLatitudeStrAttribute()
+    {
+        $long = $this->attributes['latitude'];
+        return abs($long) . ($long < 0 ? '°S' : '°N');
+    }
+
+    public function getLongitudeStrAttribute()
+    {
+        $long = $this->attributes['longitude'];
+        return abs($long) . ($long < 0 ? '°W' : '°E');
+    }
 }
