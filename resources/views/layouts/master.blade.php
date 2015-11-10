@@ -15,6 +15,7 @@
             <img src="{{ asset('images/logo.png') }}" alt="Kyoto University">
         </a>
         <ul class="nav navbar-nav">
+            @if (Auth::user())
             <li class="nav-item">
                 <a class="nav-link" href="{{ action('MeasurementsController@top10') }}">Temperatures</a>
             </li>
@@ -25,12 +26,16 @@
                 <a class="nav-link" href="{{ action('MeasurementsController@kyotoLongitude') }}">Kyoto Longitude</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ action('DownloadController@index') }}">Raw Data</a>
+                <a class="nav-link" href="{{ action('DownloadController@index') }}">Export</a>
             </li>
-            @if (Auth::user())
+            <li class="navbar-link pull-right">
+                <a class="nav-link" href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
+            </li>
+            @if(Auth::user()->rights > 0)
                 <li class="navbar-link pull-right">
-                    <a class="nav-link" href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
+                    <a class="nav-link" href="{{ action('Admin\AdminPanelController@index') }}">Admin</a>
                 </li>
+            @endif
             @else
                 <li class="navbar-link pull-right">
                     <a class="nav-link" href="{{ action('Auth\AuthController@getLogin') }}">Login</a>

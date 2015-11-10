@@ -3,7 +3,7 @@
 @section('master_content')
     <div class="container">
         @if (session('status'))
-        <div class="row">
+        <div class="row m-t">
             <div class="col-md-12">
                 <div class="alert alert-success">
                     {{ session('status') }}
@@ -13,7 +13,7 @@
         @endif
         @if (session('error'))
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 m-t">
                 <div class="alert alert-danger">
                 {{ session('error') }}
                 </div>

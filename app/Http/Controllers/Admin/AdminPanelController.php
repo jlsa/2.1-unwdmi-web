@@ -13,13 +13,35 @@ class AdminPanelController extends Controller
     /**
      *
      */
-    public function show()
+    public function index()
     {
         if (!$this->checkRights()) {
             return redirect('/')
                 ->with('error', 'Access denied.');
         }
-        return view('admin.home');
+        return view('admin.overview',[
+            'users' => User::all()->sortBy('id')
+            ]);
+    }
+
+    public function show($id)
+    {
+        if (!$this->checkRights()) {
+            return redirect('/')
+                ->with('error', 'Access denied.');
+        }
+        return view('admin.view',[
+            'user' => User::find($id)
+            ]);
+    }
+
+    public function create()
+    {
+        if (!$this->checkRights()) {
+            return redirect('/')
+                ->with('error', 'Access denied.');
+        }
+        return view('admin.create_user');
     }
 
     public function createUser(Request $request)
@@ -49,22 +71,10 @@ class AdminPanelController extends Controller
         User::create($data);
 
         return redirect('admin')
-            ->with('message', 'Account ""' . $email . '" was created!');
+            ->with('status', 'Account ""' . $email . '" was created!');
     }
 
-    public function showUser()
-    {
 
-    }
-
-    public function showCreateUser()
-    {
-        if (!$this->checkRights()) {
-            return redirect('/')
-                ->with('error', 'Access denied.');
-        }
-        return view('admin.create_user');
-    }
 
     public function checkRights()
     {

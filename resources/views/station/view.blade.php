@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="page-title">
+<div class="page-title m-t">
     <h1>
         {{ title_case($station->name) }},
         {{ title_case($station->country) }}

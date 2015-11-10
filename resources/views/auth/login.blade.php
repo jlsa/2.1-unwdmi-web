@@ -3,7 +3,7 @@
 @section('title', 'Login Portal')
 
 @section('content')
-<div class="row">
+<div class="row m-t">
     <div class="col-md-12">
         <h1>Log in</h1>
     </div>

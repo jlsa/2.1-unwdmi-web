@@ -5,7 +5,7 @@
 @section('title','Measurements')
 
 @section('content')
-<div class="row m-t-md">
+<div class="row m-t">
     <div class="col-md-12">
     <h1>Temperatures Kyoto</h1>
     On this page you can find the top ten temperatures on the same longitude as Kyoto.
