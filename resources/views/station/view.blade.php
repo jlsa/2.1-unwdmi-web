@@ -51,6 +51,15 @@
     </div>
 </div>
 
-
+<div class="row">
+    <div class="col-xs-12">
+        <div class="chart"
+             data-insert="chart"
+             data-station-id="{{ $station->id }}"
+             data-title="Rainfall near {{ title_case($station->name) }}, {{ title_case($station->country) }}"
+             data-subtitle="over the past 24 hours"
+             style="height: 480px"></div>
+    </div>
+</div>
 
 @endsection

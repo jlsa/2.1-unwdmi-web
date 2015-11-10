@@ -95,5 +95,33 @@ class MeasurementsController extends Controller
         ]);
     }
 
+    /**
+     * Returns a single graph line for a given property and station over the
+     * past 24 hours.
+     */
+    public function showGraphJson(Request $request)
+    {
+        $property = $request->input('property');
+        $station = Station::find($request->input('station'));
+        $interval = $request->input('interval', 1);
+        $measurements = $station->measurements()
+            ->where('time', '>', Carbon::now()->subDay())
+            ->orderBy('time', 'asc')
+            ->select(['time', $property])
+            ->get();
+        return $measurements
+            ->map(function ($model) use ($property, $interval) {
+                $time = Carbon::parse($model->time)->timestamp;
+                return [$time, (float) $model->$property, (int) floor($time / (int) $interval)];
+            })
+            ->groupBy(2)
+            ->map(function ($list) {
+                return [
+                    floor($list->average(0)),
+                    $list->average(1)
+                ];
+            })
+            ->values();
+    }
 
 }

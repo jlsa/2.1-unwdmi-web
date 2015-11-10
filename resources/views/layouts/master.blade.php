@@ -42,6 +42,7 @@
 
     @yield('master_content')
 
+    <script src="{{ asset('js/flotr2.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
