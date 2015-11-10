@@ -39,6 +39,10 @@
                     <th class="col-md-4 text-right">Elevation:</th>
                     <td class="col-md-8">{{ $station->elevation }}m</td>
                 </tr>
+                <tr>
+                    <th class="col-md-4 text-right"></th>
+                    <td class="col-md-8"><a class="btn btn-primary" href="{{action('StationsController@showMeasurements', $station)}}" role="button">Measurements</a></td>
+                </tr>
             </tbody>
         </table>
     </div>
