@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('rainmostrecent','RainfallController@showMostRecent');
 
     //Measurements routes
+    Route::get('measurements/graph.json', 'MeasurementsController@showGraphJson');
     Route::get('measurements/{id}', 'MeasurementsController@show');
     Route::get('measurements', 'MeasurementsController@index');
     Route::get('kyoto-longitude', 'MeasurementsController@kyotoLongitude');

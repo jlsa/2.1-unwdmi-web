@@ -12,7 +12,6 @@
 </div>
 
 <div class="row">
-
     <div class="col-sm-4">
         <table class="table table-striped table-bordered">
             <tbody>
@@ -30,15 +29,15 @@
                 </tr>
                 <tr>
                     <th class="col-md-4 text-right">Latitude:</th>
-                    <td class="col-md-8">{{ $station->latitude }}</td>
+                    <td class="col-md-8">{{ $station->latitude }}°N</td>
                 </tr>
                 <tr>
                     <th class="col-md-4 text-right">Longitude:</th>
-                    <td class="col-md-8">{{ $station->longitude }}</td>
+                    <td class="col-md-8">{{ $station->longitude }}°E</td>
                 </tr>
                 <tr>
                     <th class="col-md-4 text-right">Elevation:</th>
-                    <td class="col-md-8">{{ $station->elevation }}</td>
+                    <td class="col-md-8">{{ $station->elevation }}m</td>
                 </tr>
             </tbody>
         </table>
@@ -52,6 +51,15 @@
     </div>
 </div>
 
-
+<div class="row">
+    <div class="col-xs-12">
+        <div class="chart"
+             data-insert="chart"
+             data-station-id="{{ $station->id }}"
+             data-title="Rainfall near {{ title_case($station->name) }}, {{ title_case($station->country) }}"
+             data-subtitle="over the past 24 hours"
+             style="height: 480px"></div>
+    </div>
+</div>
 
 @endsection
