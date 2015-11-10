@@ -35,6 +35,7 @@ if (insertChart) {
   const SNAP_SIZE = 2.5;
   const VALUE_MARGIN = 1.5;
   const stationId = insertChart.dataset.stationId;
+  const formatTime = time => new Date(time * 1000).toLocaleTimeString();
   const update = () => {
     return fetch(`/measurements/graph.json?property=precipitation&station=${stationId}&interval=60`, { credentials: 'same-origin' })
       .then(res => res.json())
@@ -49,7 +50,11 @@ if (insertChart) {
             )
           },
           xaxis: {
-            tickFormatter: time => new Date(time * 1000).toLocaleTimeString()
+            tickFormatter: formatTime
+          },
+          mouse: {
+            track: true,
+            trackFormatter: ({ x, y }) => `${formatTime(x)}: ${y}cm`
           }
         });
       })
