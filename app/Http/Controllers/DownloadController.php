@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Contracts\Validation\Validator;
 use Leertaak5\Helpers\ZipStream;
 use Leertaak5\Http\Requests;
 use Leertaak5\Measurement;
@@ -34,6 +35,9 @@ class DownloadController extends Controller
                 'visibility',
                 'precipitation',
                 'snow_depth',
+                'cloud_cover',
+                'wind_direction',
+                'wind_speed'
             ],
             'showOnlyFields' => [
                 'events'
@@ -62,7 +66,22 @@ class DownloadController extends Controller
         $field['nameFields'] = self::$FIELDS['stations']['nameFields'];
         $field['showOnlyFields'] = ['events'];
 
-        return view('weather.export', ['fields' => $field, 'stations' => Station::all()->sortBy('name'), 'countries' => Station::distinct('country')->lists('country')->sort() ]);
+        foreach (self::$FIELDS['measurements']['numberFields'] as $numberField) {
+            $fieldValues[$numberField]['min'] = Measurement::min($numberField);
+            $fieldValues[$numberField]['max'] = Measurement::max($numberField);
+        }
+
+        foreach (self::$FIELDS['stations']['numberFields'] as $numberField) {
+            $fieldValues[$numberField]['min'] = Station::min($numberField);
+            $fieldValues[$numberField]['max'] = Station::max($numberField);
+        }
+
+        return view('weather.export', [
+            'fields' => $field,
+            'stations' => Station::all()->sortBy('name'),
+            'countries' => Station::distinct('country')->lists('country')->sort(),
+            'fieldValues' => $fieldValues
+            ]);
     }
     /**
      * Index: The main function in this class
@@ -71,6 +90,33 @@ class DownloadController extends Controller
      */
     public function download(Request $request)
     {
+        $this->validate($request, [
+            'stationSelect' => 'exists:stations,id',
+            'countrySelect' => 'exists:stations,country',
+            'filter.temperature.min' => 'required_with:filter.temperature.max|numeric',
+            'filter.temperature.max' => 'required_with:filter.temperature.min|numeric',
+            'filter.dew_point.min' => 'required_with:filter.dew_point.max|numeric',
+            'filter.dew_point.max' => 'required_with:filter.dew_point.min|numeric',
+            'filter.station_pressure.min' => 'required_with:filter.station_pressure.max|numeric',
+            'filter.station_pressure.max' => 'required_with:filter.station_pressure.min|numeric',
+            'filter.sea_level_pressure.min' => 'required_with:filter.sea_level_pressure.max|numeric',
+            'filter.sea_level_pressure.max' => 'required_with:filter.sea_level_pressure.min|numeric',
+            'filter.visibility.min' => 'required_with:filter.visibility.max|numeric',
+            'filter.visibility.max' => 'required_with:filter.visibility.min|numeric',
+            'filter.precipitation.min' => 'required_with:filter.precipitation.max|numeric',
+            'filter.precipitation.max' => 'required_with:filter.precipitation.min|numeric',
+            'filter.snow_depth.min' => 'required_with:filter.snow_depth.max|numeric',
+            'filter.snow_depth.max' => 'required_with:filter.snow_depth.min|numeric',
+            'filter.longitude.min' => 'required_with:filter.longitude.max|numeric',
+            'filter.longitude.max' => 'required_with:filter.longitude.min|numeric',
+            'filter.latitude.min' => 'required_with:filter.latitude.max|numeric',
+            'filter.latitude.max' => 'required_with:filter.latitude.min|numeric',
+            'filter.elevation.min' => 'required_with:filter.elevation.max|numeric',
+            'filter.elevation.max' => 'required_with:filter.elevation.min|numeric',
+            'filter.time.min' => 'required_with:filter.time.max|date_format:Y-m-d',
+            'filter.time.max' => 'required_with:filter.time.min|date_format:Y-m-d',
+            ]);
+
         $startValue = $this->start($request);
         $size = $startValue[0];
         $query = $startValue[1];
