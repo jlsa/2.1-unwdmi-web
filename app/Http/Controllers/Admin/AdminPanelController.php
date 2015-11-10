@@ -74,7 +74,7 @@ class AdminPanelController extends Controller
             ->with('status', 'Account ""' . $email . '" was created!');
     }
 
-    
+
 
     public function checkRights()
     {
