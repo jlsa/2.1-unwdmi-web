@@ -1,3 +1,5 @@
+@inject('events', 'Leertaak5\Services\EventsRenderer')
+
 @extends('layouts.page')
 
 @section('title','Measurement')
@@ -6,7 +8,7 @@
 <table class="table table-bordered table-striped">
     <thead class="header_rotate">
         <tr>
-            <th><div>Station Id</div></th>
+            <th><div>Station</div></th>
             <th><div>Time</div></th>
             <th><div>Temperature</div></th>
             <th><div>Dew Point</div></th>
@@ -25,7 +27,7 @@
         <tr>
             <td>
                 <a href="{{ action('StationsController@show', $measurement->station_id) }}">
-                    {{ $measurement->station_id }}
+                    {{ title_case($measurement->station->name) }}
                 </a>
             </td>
             <td>{{ $measurement->time }}</td>
@@ -36,12 +38,11 @@
             <td>{{ $measurement->visibility }}</td>
             <td>{{ $measurement->precipitation }}</td>
             <td>{{ $measurement->snow_depth }}</td>
-            <td>{{ $measurement->events }}</td>
+            <td>{!! $events->render($measurement->events) !!}</td>
             <td>{{ $measurement->cloud_cover }}</td>
             <td>{{ $measurement->wind_direction }}</td>
             <td>{{ $measurement->wind_speed }}</td>
         </tr>
-
     </tbody>
 </table>
 
